@@ -1,0 +1,1 @@
+Rename the directory `"key_example"` to `"key"` and update the `"firebase-service.json"` file with your firebase secrete credentials
