@@ -18,7 +18,6 @@ module.exports = {
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {
-
       maxWidth: {
         '8xl': '1920px', // custom screen size
       },
@@ -36,6 +35,10 @@ module.exports = {
         'brand-blue': "#0052CC",
         'custom-green': "#19857b",
         'custom-green-deep': "#037c70",
+        gray: {
+          800: "#424242",
+          900: "#303030",
+        }
       },
       backgroundImage: theme => ({
         'auth-landing': "url('https://source.unsplash.com/random')",

@@ -1,10 +1,12 @@
 import React from 'react';
+import {SignUpForm} from "../../client/client";
 
 const Signup = () => {
     return (
-        <div>
-            
-        </div>
+        <>
+            {/* operator sign up form */}
+           <SignUpForm />
+        </>
     );
 };
 

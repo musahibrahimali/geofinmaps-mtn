@@ -21,3 +21,8 @@
     background: #555;
 }
 /* custom scroll ends here */
+
+/* custom shadow for header on scroll */
+.custom__shadow {
+    @apply shadow-md transition-all ease-in-out duration-300;
+}

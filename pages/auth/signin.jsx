@@ -1,10 +1,12 @@
 import React from 'react';
+import {SignInForm} from "../../client/client";
 
 const Signin = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            {/* client sign in form */}
+            <SignInForm />
+        </>
     );
 };
 

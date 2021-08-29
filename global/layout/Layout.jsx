@@ -1,14 +1,39 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useStateValue} from "../../provider/AppState";
+import { ThemeProvider } from '@material-ui/core/styles';
+import {LayoutStyles} from "./LayoutStyles";
+import {createTheme, CssBaseline, Paper} from "@material-ui/core";
 import actionTypes from '../../Utils/Utils';
-import {Header,AppDrawer,Footer} from "../components/globalComponents";
+import {red} from "@material-ui/core/colors";
+import {AppDrawer, ClientNavbar, Footer, Header, SideBar} from "../global";
 
 const Layout = (props) => {
-
     /* props */
     const {children} = props;
+    const styles = LayoutStyles();
     /* data layer */
     const [{ theme, isDrawerOpen, isAdmin, user }, dispatch] = useStateValue();
+
+    const appTheme = createTheme({
+        palette: {
+            type: theme ? 'dark': 'light',
+            primary: {
+                main: '#556cd6',
+            },
+            secondary: {
+                main: '#19857b',
+            },
+            error: {
+                main: red.A400,
+            },
+            background: {
+                default: '#fff',
+            },
+            dark: {
+                default: "#2d2d2d",
+            }
+        },
+    });
 
     /* switch between dark and light mode */
     const handleTheme = () => {
@@ -39,34 +64,69 @@ const Layout = (props) => {
         }
     }
 
+    // on component mount (when it is rendered in the browser)
+    useEffect(() => {
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
-        <>
+        <ThemeProvider theme={appTheme}>
+            <CssBaseline/>
             <div className={theme ? "dark" : ""}>
-                {/* main header of the web app */}
-                <div id="back-to-top-anchor" className="sticky top-0 shadow-md transition-all ease-out duration-300 z-50">
-                    <Header handleOpenDrawer={handleOpenDrawer}/>
-                </div>
+                {
+                    isAdmin ?
+                        /* user is an admin */
+                        <div>
+                            <div className={styles.root}>
+                                <Header handleOpenSideBar={handleOpenSideBar} />
+                                <SideBar handleOpenSideBar={handleOpenSideBar} />
+                            </div>
 
-                {/* body content of the app */}
-                <div className="h-full bg-white dark:bg-gray-800 z-30">
-                    {/* side bar and its content goes in here */}
-                    <div>
-                        <AppDrawer handleOpenDrawer={handleOpenDrawer} />
-                    </div>
+                            <Paper classes={{root: styles.paper__shadow}} className={styles.main}>
+                                <div>
+                                    <AppDrawer
+                                        handleOpenDrawer={handleOpenDrawer} />
+                                </div>
+                                <div>
+                                    {children}
+                                </div>
 
-                    {/* all pages content goes in here as children from props */}
-                    <div>
-                        {children}
-                    </div>
-                    {/*<BackToTop />*/}
-                </div>
+                                {/*/!* footer for all pages *!/*/}
+                                <Footer />
+                            </Paper>
+                        </div> :
 
-                {/* footer for all pages */}
-                <div className="z-40">
-                    <Footer handleTheme={handleTheme} />
-                </div>
+                        /* user is not an admin */
+                        <div>
+                            {/* main header of the web app */}
+                            <div id="back-to-top-anchor" className="">
+                                <ClientNavbar handleOpenDrawer={handleOpenDrawer}/>
+                            </div>
+
+                            {/* body content of the app */}
+                            <div className="h-full bg-white dark:bg-gray-800 z-30">
+                                {/* side bar and its content goes in here */}
+                                <div>
+                                    <AppDrawer handleOpenDrawer={handleOpenDrawer} />
+                                </div>
+
+                                {/* all pages content goes in here as children from props */}
+                                <div>
+                                    {children}
+                                </div>
+                                {/*<BackToTop />*/}
+                            </div>
+
+                            {/* footer for all pages */}
+                            <div className="">
+                                <Footer handleTheme={handleTheme} />
+                            </div>
+                        </div>
+                }
             </div>
-        </>
+
+        </ThemeProvider>
     );
 };
 

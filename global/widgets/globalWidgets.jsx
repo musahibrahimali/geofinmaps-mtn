@@ -15,3 +15,4 @@ export {
 
 export {default as SearchBar} from './SearchBar/SearchBar';
 export {default as CopyRight} from './CopyRight/CopyRight';
+export {default as ToggleButton} from './ToggleButton/ToggleButton';

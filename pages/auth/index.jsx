@@ -1,10 +1,12 @@
 import React from 'react';
+import {AuthLanding} from "../../client/client";
 
 const AuthIndex = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            {/* operator authentication welcome screen (sign in) */}
+            <AuthLanding />
+        </>
     );
 };
 

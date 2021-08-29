@@ -1,7 +1,7 @@
 export const getDepartmentCollection = () => ([
-    { id: "1", title: "Development" },
-    { id: "2", title: "Marketing" },
-    { id: "3", title: "Accounting" },
-    { id: "4", title: "Human Resource" },
+    { id: "development", title: "Development" },
+    { id: "marketing", title: "Marketing" },
+    { id: "accounting", title: "Accounting" },
+    { id: "human resource", title: "Human Resource" },
 ]);
 

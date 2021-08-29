@@ -2,12 +2,11 @@ import React from 'react';
 import Navbar from "./Navbar/Navbar";
 
 const Header = (props) => {
-    const {handleOpenDrawer} = props;
-
+    const {handleOpenSideBar} = props;
     return (
-        <div>
-            <Navbar />
-        </div>
+        <>
+            <Navbar handleOpenSideBar={handleOpenSideBar} />
+        </>
     );
 };
 

@@ -1,9 +1,9 @@
 {
-  "title": "GeoFinMaps | MTN- everywhere you go",
+  "title": "GeoFinMaps | MTN - everywhere you go",
   "titleTemplate": "%s - GeoFinMaps",
   "description": "A platform to support field operators",
   "openGraph": {
-    "title": "GeoFinMaps | MTN- everywhere you go",
+    "title": "GeoFinMaps | MTN - everywhere you go",
     "description": "A platform to support field operators",
     "type": "website",
     "locale": "en_IE",

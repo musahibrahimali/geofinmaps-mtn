@@ -1,7 +1,7 @@
 export {default as Layout} from './layout/Layout';
 export {default as HeadTag} from './HeadTag/HeadTag';
 export {getDepartmentCollection} from './Services/EmployeeService';
-export {AppDrawer,Footer,Header} from './components/globalComponents';
+export {AppDrawer,Footer,Header,SideBar,ClientNavbar} from './components/globalComponents';
 export {
     // form controls
     UseTable,
@@ -19,4 +19,5 @@ export {
     // others
     SearchBar,
     CopyRight,
+    ToggleButton,
 } from './widgets/globalWidgets';
