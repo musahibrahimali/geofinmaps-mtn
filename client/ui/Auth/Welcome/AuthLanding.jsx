@@ -6,7 +6,6 @@ import {WelcomeStyles} from "./WelcomeStyles";
 import {Email} from "@material-ui/icons";
 
 const AuthLanding = () => {
-
     const styles = WelcomeStyles();
 
     return (
@@ -31,7 +30,7 @@ const AuthLanding = () => {
                             <Options
                                 url="#"
                                 icon={
-                                    <Email />
+                                    <Email className={styles.iconColor} />
                                 }
                                 title={"Sign in with Google"}
                             />
@@ -40,7 +39,7 @@ const AuthLanding = () => {
                             <Options
                                 url="/auth/signin"
                                 icon={
-                                    <Email />
+                                    <Email className={styles.iconColor} />
                                 }
                                 title={"Sign in with mail"}
                             />
@@ -54,7 +53,7 @@ const AuthLanding = () => {
                                     <span className="flex justify-center items-center ml-4 text-brand dark:text-brand dark:hover:text-brand-blue hover:text-brand-blue">
                                     <p className="opacity-80">Create One</p>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                                    <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                                     </svg>
                                 </span>
                                 </a>

@@ -5,7 +5,7 @@ const Signup = () => {
     return (
         <>
             {/* operator sign up form */}
-           <SignUpForm />
+            <SignUpForm />
         </>
     );
 };

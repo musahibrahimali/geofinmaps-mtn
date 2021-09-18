@@ -66,6 +66,22 @@ const Layout = (props) => {
 
     // on component mount (when it is rendered in the browser)
     useEffect(() => {
+        // listen for auth changes then set the user accordingly
+        firebase.auth().onAuthStateChanged((authUser) => {
+            if (authUser) {
+                // user found
+                dispatch({
+                    type: actionTypes.SET_USER,
+                    user: authUser,
+                });
+            } else {
+                // no user
+                dispatch({
+                    type: actionTypes.SET_USER,
+                    user: null,
+                });
+            }
+        });
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

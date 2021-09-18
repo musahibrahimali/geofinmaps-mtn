@@ -2,7 +2,7 @@ import React from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
-import {makeStyles} from "@material-ui/core";
+import {makeStyles, useTheme} from "@material-ui/core";
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import NightsStayIcon from '@material-ui/icons/NightsStay';
 import {useStateValue} from "../../../provider/AppState";
@@ -42,6 +42,12 @@ const IOSSwitchStyles = makeStyles(theme => ({
         opacity: 1,
         transition: theme.transitions.create(['background-color', 'border']),
     },
+    iconColor: {
+        color: theme.palette.grey[50],
+    },
+    darkIconColor: {
+        color: theme.palette.grey[900],
+    },
     checked: {},
     focusVisible: {},
 }));
@@ -67,6 +73,7 @@ const IOSSwitch = (props) => {
 
 const ToggleButton = () => {
     const [{theme}, dispatch] = useStateValue();
+    const styles = IOSSwitchStyles();
 
     /* switch between dark and light mode */
     const handleTheme = () => {
@@ -88,8 +95,8 @@ const ToggleButton = () => {
             <FormControlLabel
                 label={
                     theme ?
-                        <WbSunnyIcon color={theme ? 'background' : 'primary'} /> :
-                        <NightsStayIcon color={theme ? 'primary' : 'dark'}  />
+                        <WbSunnyIcon className={theme ? styles.iconColor : styles.iconColor} /> :
+                        <NightsStayIcon className={theme ? styles.darkIconColor : styles.darkIconColor }  />
                 }
                 control={
                     <IOSSwitch

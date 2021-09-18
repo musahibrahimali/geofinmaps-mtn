@@ -97,8 +97,47 @@ const AdminSignUpForm = () => {
         }
     }
 
-    const handleSignUP = () => {
-
+    const handleSignUP = async (event) => {
+        event.preventDefault();
+        await firebase.auth()
+            .createUserWithEmailAndPassword(
+                values.emailAddress, values.password
+            )
+            .then((auth) => {
+                if (auth) {
+                    firebase.firestore().collection('admins').add({
+                        userName: values.fullName,
+                        userEmail: values.emailAddress,
+                        phone: values.phoneNumber,
+                        gender: values.gender,
+                        city: values.city,
+                        isPermanent: values.isPermanent,
+                        department: userDepartment,
+                        isAdmin: true,
+                    });
+                    dispatch({
+                        type: actionTypes.SET_USER,
+                        user: auth,
+                    });
+                    router.replace('/');
+                }
+            })
+            .catch((error) => {
+                switch (error.code) {
+                    case "auth/invalid-email":
+                        setErrorMessage("Invalid Email");
+                        break;
+                    case "auth/email-already-in-use":
+                        setErrorMessage("Email in use by another account");
+                        break;
+                    case "auth/weak-password":
+                        setErrorMessage("Password must be at least 8 characters");
+                        break;
+                    default:
+                        setErrorMessage("A network error occured");
+                        break;
+                }
+            })
     }
 
     const handleSubmit = (event) => {

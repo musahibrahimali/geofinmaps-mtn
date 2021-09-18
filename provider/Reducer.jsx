@@ -5,7 +5,6 @@ export const initialState = {
     theme: false,
     isDrawerOpen: false,
     isSideBarOpen: false,
-    isAdmin: false,
 }
 
 const reducer = (state, action) => {
@@ -14,11 +13,6 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 user: action.user,
-            }
-        case actionTypes.SET_ADMIN:
-            return {
-                ...state,
-                admin: action.admin,
             }
         case actionTypes.SET_THEME:
             return {

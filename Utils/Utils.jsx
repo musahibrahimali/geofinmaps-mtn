@@ -5,7 +5,7 @@ const actionTypes = {
     SET_THEME : "SET_THEME", // set the theme (dark===true, light===false)
     OPEN_DRAWER: "OPEN_DRAWER", // open the app drawer on small screen (opened===true, closed===false)
     OPEN_SIDEBAR: "OPEN_SIDEBAR", // open the side bar (opened===true, closed===false)
-    SET_ADMIN: "SET_ADMIN", // open the side bar (opened===true, closed===false)
+    // SET_ADMIN: "SET_ADMIN", // open the side bar (opened===true, closed===false)
 }
 
 export default actionTypes;

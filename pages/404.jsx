@@ -20,9 +20,9 @@ const NotFound = () => {
                 <div className="bg-white dark:bg-gray-900 grid grid-cols-6 gap-2 grid-rows-1 mb-5">
                     <div className="bg-white w-full dark:bg-gray-900 col-span-6 flex justify-center items-center mx-auto mt-4 px-4">
                         <Image src={NotFoundImage}
-                               width={1100}
-                               height={400}
-                               alt="404 graphics"
+                            width={1100}
+                            height={400}
+                            alt="404 graphics"
                         />
                     </div>
                     <div

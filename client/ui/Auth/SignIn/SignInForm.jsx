@@ -12,6 +12,7 @@ import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
 import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import {CheckBox, CopyRight, Form, FormButton, InputField, UseForm} from "../../../../global/global";
+import actionTypes from '../../../../Utils/Utils';
 
 const initialValues = {
     id: 0,
@@ -23,7 +24,7 @@ const initialValues = {
 const SignInForm = () => {
 
     const styles = SignInFormStyles();
-
+    const [dispatch] = useStateValue();
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     /* validate form */
@@ -51,8 +52,40 @@ const SignInForm = () => {
         }
     }
 
-    const handleLogIn = (event) => {
+    const handleLogIn = async (event) => {
         event.preventDefault();
+        await firebase.auth()
+            .signInWithEmailAndPassword(
+                values.emailAddress, values.password
+            )
+            .then((auth) => {
+                if (auth) {
+                    dispatch({
+                        type: actionTypes.SET_USER,
+                        user: auth,
+                    });
+                    router.replace('/');
+                }
+            })
+            .catch((error) => {
+                switch (error.code) {
+                    case "auth/invalid-email":
+                        setErrorMessage("Invalid Email");
+                        break;
+                    case "auth/user-disabled":
+                        setErrorMessage("Account has been disabled");
+                        break;
+                    case "auth/user-not-found":
+                        setErrorMessage("User not found");
+                        break;
+                    case "auth/wrong-password":
+                        setErrorMessage("Invalid password");
+                        break;
+                    default:
+                        setErrorMessage("A network error occured");
+                        break;
+                }
+            })
     }
 
     const handleSubmit = (event) => {
@@ -75,7 +108,7 @@ const SignInForm = () => {
         <>
             <Paper classes={{root: styles.root}} component="main" className={styles.image}>
                 <Container component="main" maxWidth="xs"
-                           className="bg-white dark:bg-gray-800 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
+                        className="bg-white dark:bg-gray-800 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
                     <div className={styles.paper}>
                         <div className="mb-6 flex flex-col items-center justify-center">
                             <Avatar className={styles.avatar}/>
