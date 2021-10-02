@@ -1,0 +1,91 @@
+[{
+        "id": 1,
+        "title": "point 1",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 2",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 3",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 4",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 5",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 6",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 7",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 8",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 9",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    },
+    {
+        "id": 1,
+        "title": "point 10",
+        "coord": {
+            "lat": "123.234",
+            "lon": "-234.567"
+        },
+        "location": "kumasi central"
+    }
+]

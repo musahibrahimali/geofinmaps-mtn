@@ -9,35 +9,37 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@material-ui/lab": "^4.0.0-alpha.60",
-    "clsx": "^1.1.1",
-    "next": "11.1.0",
-    "prop-types": "^15.7.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-google-maps": "^9.4.5"
-  },
-  "devDependencies": {
     "@date-io/date-fns": "1.x",
-    "@headlessui/react": "^1.4.0",
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
     "@heroicons/react": "^1.0.4",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@material-ui/pickers": "^3.3.10",
     "autoprefixer": "^10.3.2",
     "chart.js": "^3.5.1",
+    "clsx": "^1.1.1",
     "date-fns": "^2.23.0",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.0",
     "firebase": "^8.10.0",
     "firebase-admin": "^9.11.1",
     "framer-motion": "^4.1.17",
+    "next": "11.1.0",
     "next-compose-plugins": "^2.2.1",
     "next-seo": "^4.26.0",
     "next-videos": "^1.4.0",
     "postcss": "^8.3.6",
+    "prop-types": "^15.7.2",
+    "react": "17.0.2",
+    "react-chartjs-2": "^3.0.5",
+    "react-dom": "17.0.2",
+    "react-google-maps": "^9.4.5",
     "react-slick": "^0.28.1",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^2.2.7"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.0"
   }
 }

@@ -1,0 +1,91 @@
+[{
+        "id": 1,
+        "name": "John Jesus",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": true,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 2,
+        "name": "Lydia Asare Bediako",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": true,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 3,
+        "name": "John Doe",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": true,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 4,
+        "name": "John Nkrumah",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": true,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 5,
+        "name": "James Sawerson",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": false,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 6,
+        "name": "Alex Learned",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": false,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 7,
+        "name": "Henry Garvey",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": false,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 8,
+        "name": "Madisson Pratt",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": false,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 9,
+        "name": "Raymond Reddington",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": false,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    },
+    {
+        "id": 10,
+        "name": "Alicia Keys",
+        "profile": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Delectus tempora voluptates accusamus quibusdam corrupti aut, animi aspernatur magnam, aperiam vel omnis dicta, eum exercitationem earum quaerat perspiciatis molestias sed deleniti!",
+        "isOnline": false,
+        "email": "example@email.com",
+        "role": "technician",
+        "department" : "Technical Support"
+    }
+]

@@ -1,0 +1,121 @@
+[{
+        "id": 1,
+        "title": "Report Number One",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "John Doe",
+        "reportType": "danger",
+        "location": "Kumasi Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 2,
+        "title": "Report Number Two",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "Raymond Redington",
+        "reportType": "warning",
+        "location": "Ahafo North",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 3,
+        "title": "Report Number Three",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "Henry Garvey",
+        "reportType": "normal",
+        "location": "Bolga Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 4,
+        "title": "Report Number Four",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "John Yezu",
+        "reportType": "danger",
+        "location": "Kumasi Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 5,
+        "title": "Report Number Five",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "Lydia Asare",
+        "reportType": "danger",
+        "location": "Bono Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 6,
+        "title": "Report Number Six",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "Alberta Dadeboe",
+        "reportType": "danger",
+        "location": "Wa Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 7,
+        "title": "Report Number Seven",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "Ladvrin Adanamsa",
+        "reportType": "warning",
+        "location": "Ho Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 8,
+        "title": "Report Number Eight",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "John Doe",
+        "reportType": "danger",
+        "location": "Accra Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 9,
+        "title": "Report Number Nine",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "John Jesus",
+        "reportType": "danger",
+        "location": "Tamale Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    },
+    {
+        "id": 10,
+        "title": "Report Number Ten",
+        "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti ratione exercitationem inventore fuga recusandae, natus aut? Id rerum neque molestiae nisi? Aspernatur numquam quis quisquam doloremque vitae maiores voluptas modi!",
+        "author": "Ransford Peter-King",
+        "reportType": "normal",
+        "location": "Koforidua Central",
+        "coordinates": {
+            "lat": "123.345",
+            "lng": "-234.567"
+        }
+    }
+]
