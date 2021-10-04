@@ -35,7 +35,7 @@ const initialValues = {
 };
 
 function MakeReportForm(props) {
-
+    const {addOrEdit} = props;
     const styles = MakeReportFormStyles();
 
     const threatLevels = [
@@ -43,24 +43,6 @@ function MakeReportForm(props) {
         { id: "warning", title: "Warning" },
         { id: "normal", title: "Normal" },
     ];
-
-    const [errorMessage, setErrorMessage] = useState("");
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-
-    const [dispatch] = useStateValue();
-    const router = useRouter();
-
-    const handlePasswordVisible = (event) => {
-        event.preventDefault();
-        setPasswordVisible(!passwordVisible);
-    }
-
-    /* handle confirm password visible */
-    const handleConfirmPasswordVisible = (event) => {
-        event.preventDefault();
-        setConfirmPasswordVisible(!confirmPasswordVisible);
-    }
 
     const validateForm = (fieldValues = values) => {
         let temp = { ...errors };
@@ -71,13 +53,13 @@ function MakeReportForm(props) {
             temp.emailAddress = (/$^|.+@.+..+/).test(fieldValues.emailAddress) ? "" : "Invalid Email";
         }
         if ('title' in fieldValues) {
-            temp.title = fieldValues.title.length >= 8 ? "" : "This field is required)";
+            temp.title = fieldValues.title.length >= 8 ? "" : "Title must be at least 8 characters";
         }
         if ('description' in fieldValues) {
-            temp.description = fieldValues.description.length >= 8 ? "" : "This field is Required";
+            temp.description = fieldValues.description.length >= 50 ? "" : "description must be at least 20 words";
         }
         if ('location' in fieldValues) {
-            temp.location = fieldValues.location.length > 9 ? "" : "This field is required";
+            temp.location = fieldValues.location ? "" : "This field is required";
         }
         if ('level' in fieldValues) {
             temp.level = fieldValues.level.length !== 0 ? "" : "This Field is Required";
@@ -94,7 +76,7 @@ function MakeReportForm(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-
+            addOrEdit(values, handleResetForm);
         }
     }
 
@@ -189,22 +171,17 @@ function MakeReportForm(props) {
                                 maxRows={50}
                                 rows={12}
                                 value={values.description}
+                                error={errors.description}
                                 onChange={handleInputChange}
                             />
 
                         </Grid>
                     </Grid>
 
-                    <div className="flex flex-row justify-center items-center">
-                        <p className="text-red-500 dark:text-red-700">
-                            {errorMessage}
-                        </p>
-                    </div>
-
                     <div className={styles.mainContainer}>
                         <FormButton
                             type="submit"
-                            text="Reset"
+                            text="Report"
                         />
                         <FormButton
                             variant="outlined"
