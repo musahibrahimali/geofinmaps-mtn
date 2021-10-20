@@ -27,6 +27,7 @@ import {
 } from "../../../../global/global";
 import {useStateValue} from "../../../../provider/AppState";
 import {useRouter} from "next/router";
+import actionTypes from "../../../../Utils/Utils";
 
 const genderItems = [
     { id: "male", title: "Male" },
@@ -106,15 +107,20 @@ const AdminSignUpForm = () => {
             )
             .then((auth) => {
                 if (auth) {
-                    firebase.firestore().collection('admins').add({
-                        userName: values.fullName,
-                        userEmail: values.emailAddress,
-                        phone: values.phoneNumber,
+                    const data = {
+                        userUID: auth.user.uid,
+                        fullName: values.fullName,
+                        emailAddress: values.emailAddress,
+                        phoneNumber: values.phoneNumber,
                         gender: values.gender,
                         city: values.city,
                         isPermanent: values.isPermanent,
                         department: values.departmentId,
                         isAdmin: true,
+                    };
+                    const storeAdminData = firebase.functions().httpsCallable('storeAdminData');
+                    storeAdminData(data).then((results) => {
+                        console.log(results.data);
                     });
                     dispatch({
                         type: actionTypes.SET_USER,

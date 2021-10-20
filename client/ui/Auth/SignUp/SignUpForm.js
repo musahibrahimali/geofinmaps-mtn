@@ -109,15 +109,20 @@ const SignUpForm = () => {
             )
             .then((auth) => {
                 if (auth) {
-                    firebase.firestore().collection('users').add({
-                        userName: values.fullName,
-                        userEmail: values.emailAddress,
-                        phone: values.phoneNumber,
+                    const data = {
+                        userUID: auth.user.uid,
+                        fullName: values.fullName,
+                        emailAddress: values.emailAddress,
+                        phoneNumber: values.phoneNumber,
                         gender: values.gender,
                         city: values.city,
                         isPermanent: values.isPermanent,
                         department: values.departmentId,
-                        isAdmin: false,
+                        isAdmin: true,
+                    };
+                    const storeClientData = firebase.functions().httpsCallable('storeClientData');
+                    storeClientData(data).then((results) => {
+                        console.log(results.data);
                     });
                     dispatch({
                         type: actionTypes.SET_USER,
