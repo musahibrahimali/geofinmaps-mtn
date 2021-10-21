@@ -1,7 +1,6 @@
-import { makeStyles } from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
 
-export const FormButtonStyles = makeStyles(
-    theme => ({
+export const FormButtonStyles = makeStyles(theme => ({
         root: {
             margin: theme.spacing(1),
         },

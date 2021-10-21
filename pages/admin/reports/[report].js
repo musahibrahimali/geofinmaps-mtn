@@ -4,6 +4,9 @@ import actionTypes from "../../../Utils/Utils";
 import {Header} from "../../../global/components/globalComponents";
 
 const Report = (props) => {
+
+    const {report} = props;
+
     /* data layer */
     const [{ isDrawerOpen}, dispatch] = useStateValue();
     const handleOpenDrawer = () => {

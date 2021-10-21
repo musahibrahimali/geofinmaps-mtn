@@ -1,20 +1,24 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import {IconButton, InputAdornment, Paper} from "@material-ui/core";
-import {SignInFormStyles} from "./SignInFormStyles";
-import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
-import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import {
+    Container,
+    IconButton,
+    InputAdornment,
+    Paper,
+    Typography,
+    Box,
+    Grid,
+    Avatar,
+} from "@mui/material";
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import {CheckBox, CopyRight, Form, FormButton, InputField, UseForm} from "../../../../global/global";
 import firebase from 'firebase';
 import {useStateValue} from "../../../../provider/AppState";
 import actionTypes from "../../../../Utils/Utils";
+import {SignInFormStyles} from "./SignInFormStyles";
 
 const initialValues = {
     id: 0,
@@ -141,7 +145,7 @@ const AdminSignInForm = () => {
                                 value={values.password}
                                 onChange={handleInputChange}
                                 error={errors.password}
-                                inputIcon={<LockOutlinedIcon color="secondary"/>}
+                                inputIcon={<LockOpenOutlinedIcon color="secondary"/>}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton

@@ -1,18 +1,22 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import {SignUpFormStyles} from "./SignUpFormStyles";
-import {Container, IconButton, InputAdornment, Paper} from "@material-ui/core";
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import PersonOutlineOutlinedIcon from '@material-ui/icons/PersonOutlineOutlined';
-import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
-import CallIcon from '@material-ui/icons/call';
-import LocationCityIcon from '@material-ui/icons/locationcity';
+import {
+    Container,
+    IconButton,
+    InputAdornment,
+    Paper,
+    Typography,
+    Box,
+    Grid,
+    Avatar,
+} from "@mui/material";
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import LocationCityIcon from '@mui/icons-material/LocationCity';
+import CallIcon from '@mui/icons-material/Call';
 import firebase from 'firebase';
 
 import {
@@ -21,13 +25,14 @@ import {
     DropDown,
     Form,
     FormButton, getDepartmentCollection,
-    InputField,
+    InputField, Notification,
     RadioControls,
     UseForm
 } from "../../../../global/global";
 import {useStateValue} from "../../../../provider/AppState";
 import {useRouter} from "next/router";
 import actionTypes from "../../../../Utils/Utils";
+import {SignUpFormStyles} from "./SignUpFormStyles";
 
 const genderItems = [
     { id: "male", title: "Male" },
@@ -55,9 +60,28 @@ const AdminSignUpForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+    const [signIn, setSignIn] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
     const [dispatch] = useStateValue();
     const router = useRouter();
+
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(signIn){
+            setNotify({
+                isOpen: true,
+                message: "Sign up Successful",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "Sign not Successful",
+                type: "error"
+            });
+        }
+    }
 
     const handlePasswordVisible = (event) => {
         event.preventDefault();
@@ -100,7 +124,6 @@ const AdminSignUpForm = () => {
     }
 
     const handleSignUP = async (event) => {
-        event.preventDefault();
         await firebase.auth()
             .createUserWithEmailAndPassword(
                 values.emailAddress, values.password
@@ -116,11 +139,12 @@ const AdminSignUpForm = () => {
                         city: values.city,
                         isPermanent: values.isPermanent,
                         department: values.departmentId,
+                        hireDate: values.hireDate,
                         isAdmin: true,
                     };
                     const storeAdminData = firebase.functions().httpsCallable('storeAdminData');
-                    storeAdminData(data).then((results) => {
-                        console.log(results.data);
+                    storeAdminData(data).then(() => {
+                        setSignIn(false)
                     });
                     dispatch({
                         type: actionTypes.SET_USER,
@@ -129,29 +153,13 @@ const AdminSignUpForm = () => {
                     router.replace('/');
                 }
             })
-            .catch((error) => {
-                switch (error.code) {
-                    case "auth/invalid-email":
-                        setErrorMessage("Invalid Email");
-                        break;
-                    case "auth/email-already-in-use":
-                        setErrorMessage("Email in use by another account");
-                        break;
-                    case "auth/weak-password":
-                        setErrorMessage("Password must be at least 8 characters");
-                        break;
-                    default:
-                        setErrorMessage("A network error occured");
-                        break;
-                }
-            })
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (validateForm()) {
-            handleSignUP().then(results => {
-                console.log("sign up successful", results);
+            await handleSignUP().then(() => {
+                notifyUser();
             });
         }
     }
@@ -167,178 +175,186 @@ const AdminSignUpForm = () => {
     } = UseForm(initialValues, true, validateForm);
 
     return (
-        <Paper classes={{root: styles.root}} className={styles.image}>
-            <Container component="main" maxWidth="md" className="bg-white dark:bg-gray-800 mb-4 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
+        <>
+            <Paper classes={{root: styles.root}} className={styles.image}>
+                <Container component="main" maxWidth="md" className="bg-white dark:bg-gray-800 mb-4 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
 
-                <div className="mb-6 flex flex-col items-center justify-center">
-                    <Avatar className={styles.avatar}/>
-                    <Typography component="h1" variant="h5">
-                        SIGN UP
-                    </Typography>
-                </div>
-                <Form onSubmit={handleSubmit}>
-                    <Grid className={styles.container}>
-                        <Grid container>
-                            <Grid item xs={6} className={styles.space}>
-                                <InputField
-                                    required
-                                    label="Full Name"
-                                    name="fullName"
-                                    value={values.fullName}
-                                    onChange={handleInputChange}
-                                    error={errors.fullName}
-                                    inputIcon={<PersonOutlineOutlinedIcon color="secondary" />}
-                                />
-                                <InputField
-                                    required
-                                    label="Email Address"
-                                    name="emailAddress"
-                                    value={values.emailAddress}
-                                    onChange={handleInputChange}
-                                    error={errors.emailAddress}
-                                    inputIcon={<EmailOutlinedIcon color="secondary" />}
-                                />
-                                <InputField
-                                    required
-                                    label="Password"
-                                    name="password"
-                                    type={passwordVisible ? "text" : "password"}
-                                    value={values.password}
-                                    onChange={handleInputChange}
-                                    error={errors.password}
-                                    inputIcon={<LockOutlinedIcon color="secondary" />}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onMouseDown={handlePasswordVisible}
-                                            >
-                                                {passwordVisible ? <VisibilityOutlinedIcon color="secondary" /> : <VisibilityOffOutlinedIcon color="secondary" />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                                <InputField
-                                    required
-                                    label="Confirm Password"
-                                    name="confirmPassword"
-                                    type={confirmPasswordVisible ? "text" : "password"}
-                                    value={values.confirmPassword}
-                                    onChange={handleInputChange}
-                                    error={errors.confirmPassword}
-                                    inputIcon={<LockOutlinedIcon color="secondary" />}
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                aria-label="toggle password visibility"
-                                                onMouseDown={handleConfirmPasswordVisible}
-                                            >
-                                                {confirmPasswordVisible ? <VisibilityOutlinedIcon color="secondary" /> : <VisibilityOffOutlinedIcon color="secondary" />}
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                />
-                                <InputField
-                                    required
-                                    label="Phone Number"
-                                    name="phoneNumber"
-                                    value={values.phoneNumber}
-                                    onChange={handleInputChange}
-                                    error={errors.phoneNumber}
-                                    inputIcon={<CallIcon color="secondary" />}
-                                />
+                    <div className="mb-6 flex flex-col items-center justify-center">
+                        <Avatar className={styles.avatar}/>
+                        <Typography component="h1" variant="h5">
+                            SIGN UP
+                        </Typography>
+                    </div>
+                    <Form onSubmit={handleSubmit}>
+                        <Grid className={styles.container}>
+                            <Grid container>
+                                <Grid item xs={6} className={styles.space}>
+                                    <InputField
+                                        required
+                                        label="Full Name"
+                                        name="fullName"
+                                        value={values.fullName}
+                                        onChange={handleInputChange}
+                                        error={errors.fullName}
+                                        inputIcon={<PersonOutlinedIcon color="secondary" />}
+                                    />
+                                    <InputField
+                                        required
+                                        label="Email Address"
+                                        name="emailAddress"
+                                        value={values.emailAddress}
+                                        onChange={handleInputChange}
+                                        error={errors.emailAddress}
+                                        inputIcon={<EmailOutlinedIcon color="secondary" />}
+                                    />
+                                    <InputField
+                                        required
+                                        label="Password"
+                                        name="password"
+                                        type={passwordVisible ? "text" : "password"}
+                                        value={values.password}
+                                        onChange={handleInputChange}
+                                        error={errors.password}
+                                        inputIcon={<LockOpenOutlinedIcon color="secondary" />}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onMouseDown={handlePasswordVisible}
+                                                >
+                                                    {passwordVisible ? <VisibilityOutlinedIcon color="secondary" /> : <VisibilityOffOutlinedIcon color="secondary" />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                    />
+                                    <InputField
+                                        required
+                                        label="Confirm Password"
+                                        name="confirmPassword"
+                                        type={confirmPasswordVisible ? "text" : "password"}
+                                        value={values.confirmPassword}
+                                        onChange={handleInputChange}
+                                        error={errors.confirmPassword}
+                                        inputIcon={<LockOpenOutlinedIcon color="secondary" />}
+                                        endAdornment={
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    onMouseDown={handleConfirmPasswordVisible}
+                                                >
+                                                    {confirmPasswordVisible ? <VisibilityOutlinedIcon color="secondary" /> : <VisibilityOffOutlinedIcon color="secondary" />}
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                    />
+                                    <InputField
+                                        required
+                                        label="Phone Number"
+                                        name="phoneNumber"
+                                        value={values.phoneNumber}
+                                        onChange={handleInputChange}
+                                        error={errors.phoneNumber}
+                                        inputIcon={<CallIcon color="secondary" />}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={6} className={styles.space}>
+
+                                    <RadioControls
+                                        required
+                                        name="gender"
+                                        label="Gender"
+                                        value={values.gender}
+                                        items={genderItems}
+                                        onChange={handleInputChange}
+                                    />
+
+                                    <InputField
+                                        required
+                                        label="City"
+                                        name="city"
+                                        value={values.city}
+                                        onChange={handleInputChange}
+                                        inputIcon={<LocationCityIcon color="secondary" />}
+                                    />
+
+                                    <DropDown
+                                        required
+                                        name="departmentId"
+                                        label="Department"
+                                        value={values.departmentId}
+                                        options={getDepartmentCollection()}
+                                        onChange={handleInputChange}
+                                        error={errors.departmentId}
+                                    />
+
+                                    <DatePicker
+                                        required
+                                        name="hireDate"
+                                        label="Hire Date"
+                                        value={values.hireDate}
+                                        onChange={handleInputChange}
+                                    />
+
+                                    <CheckBox
+                                        name="isPermanent"
+                                        label="Permanent Employee"
+                                        value={values.isPermanent}
+                                        onChange={handleInputChange}
+                                    />
+                                </Grid>
                             </Grid>
 
-                            <Grid item xs={6} className={styles.space}>
+                            <div className="flex flex-row justify-center items-center">
+                                <p className="text-red-500 dark:text-red-700">
+                                    {errorMessage}
+                                </p>
+                            </div>
 
-                                <RadioControls
-                                    required
-                                    name="gender"
-                                    label="Gender"
-                                    value={values.gender}
-                                    items={genderItems}
-                                    onChange={handleInputChange}
+                            <div className={styles.mainContainer}>
+                                <FormButton
+                                    type="submit"
+                                    text="Register"
                                 />
+                                <FormButton
+                                    variant="outlined"
+                                    color="secondary"
+                                    size="large"
+                                    text="Reset"
+                                    onClick={handleResetForm} />
+                            </div>
 
-                                <InputField
-                                    required
-                                    label="City"
-                                    name="city"
-                                    value={values.city}
-                                    onChange={handleInputChange}
-                                    inputIcon={<LocationCityIcon color="secondary" />}
-                                />
-
-                                <DropDown
-                                    required
-                                    name="departmentId"
-                                    label="Department"
-                                    value={values.departmentId}
-                                    options={getDepartmentCollection()}
-                                    onChange={handleInputChange}
-                                    error={errors.departmentId}
-                                />
-
-                                <DatePicker
-                                    required
-                                    name="hireDate"
-                                    label="Hire Date"
-                                    value={values.hireDate}
-                                    onChange={handleInputChange}
-                                />
-
-                                <CheckBox
-                                    name="isPermanent"
-                                    label="Permanent Employee"
-                                    value={values.isPermanent}
-                                    onChange={handleInputChange}
-                                />
-                            </Grid>
-                        </Grid>
-
-                        <div className="flex flex-row justify-center items-center">
-                            <p className="text-red-500 dark:text-red-700">
-                                {errorMessage}
-                            </p>
-                        </div>
-
-                        <div className={styles.mainContainer}>
-                            <FormButton
-                                type="submit"
-                                text="Register"
-                            />
-                            <FormButton
-                                variant="outlined"
-                                color="secondary"
-                                size="large"
-                                text="Reset"
-                                onClick={handleResetForm} />
-                        </div>
-
-                        {/* create account */}
-                        <div className="flex flex-col justify-center items-center">
-                            <Link href="/admin/auth/signin">
-                                <a className="flex justify-center items-center text-lg">
-                                    <p className="text-gray-700 dark:text-gray-50">Already have an account ?</p>
-                                    <span className="flex justify-center items-center ml-4 text-brand dark:text-brand dark:hover:text-brand-blue hover:text-brand-blue">
+                            {/* create account */}
+                            <div className="flex flex-col justify-center items-center">
+                                <Link href="/admin/auth/signin">
+                                    <a className="flex justify-center items-center text-lg">
+                                        <p className="text-gray-700 dark:text-gray-50">Already have an account ?</p>
+                                        <span className="flex justify-center items-center ml-4 text-brand dark:text-brand dark:hover:text-brand-blue hover:text-brand-blue">
                                     <p className="opacity-80">Sign in</p>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                       <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                                     </svg>
                                 </span>
-                                </a>
-                            </Link>
-                        </div>
-                    </Grid>
+                                    </a>
+                                </Link>
+                            </div>
+                        </Grid>
 
-                    {/* copyright phrase on bottom of sheet */}
-                    <Box>
-                        <CopyRight/>
-                    </Box>
-                </Form>
+                        {/* copyright phrase on bottom of sheet */}
+                        <Box>
+                            <CopyRight/>
+                        </Box>
+                    </Form>
 
-            </Container>
-        </Paper>
+                </Container>
+            </Paper>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+        </>
     );
 }
 

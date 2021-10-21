@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Options from "./Options/Options";
-import {Container, Paper} from "@material-ui/core";
+import {Container, Paper} from "@mui/material";
 import {WelcomeStyles} from "./WelcomeStyles";
-import {Email} from "@material-ui/icons";
+import EmailIcon from '@mui/icons-material/Email';
 
 const AuthLanding = () => {
     const styles = WelcomeStyles();
@@ -30,7 +30,7 @@ const AuthLanding = () => {
                             <Options
                                 url="#"
                                 icon={
-                                    <Email className={styles.iconColor} />
+                                    <EmailIcon className={styles.iconColor} />
                                 }
                                 title={"Sign in with Google"}
                             />
@@ -39,7 +39,7 @@ const AuthLanding = () => {
                             <Options
                                 url="/auth/signin"
                                 icon={
-                                    <Email className={styles.iconColor} />
+                                    <EmailIcon className={styles.iconColor} />
                                 }
                                 title={"Sign in with mail"}
                             />

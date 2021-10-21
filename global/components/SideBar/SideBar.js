@@ -1,19 +1,21 @@
 import React from 'react';
 import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {
+    Drawer,
+    List,
+    Divider,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+} from '@mui/material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import InboxIcon from '@mui/icons-material/Inbox';
+import MailIcon from '@mui/icons-material/Mail';
 import {useStateValue} from "../../../provider/AppState";
 import {SideBarStyles} from "./SideBarStyles";
-import {useTheme} from "@material-ui/core";
+import {useTheme} from "@mui/styles";
 
 const SideBar = (props) => {
     const theme = useTheme();

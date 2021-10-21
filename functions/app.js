@@ -19,53 +19,31 @@ exports.onUserLogIn = functions.https.onCall((data, context) => {
 });
 
 exports.storeClientData = functions.https.onCall((data, context) => {
-  const userUID = data.userUID;
-  const emailAddress = data.emailAddress;
-  const fullName = data.fullName;
-  const phoneNumber = data.phoneNumber;
-  const city = data.city;
-  const gender = data.gender;
-  const department = data.departmentId;
-  const hireDate = data.hireDate;
-  const isPermanent = data.isPermanent;
-  const isAdmin = data.isAdmin;
-  const userData = {
-    emailAddress: emailAddress,
-    fullName: fullName,
-    phoneNumber: phoneNumber,
-    city: city,
-    gender: gender,
-    departmentId: department,
-    hireDate: hireDate,
-    isPermanent: isPermanent,
-    isAdmin: isAdmin,
-  };
-  return admin.firestore().collection("users").doc(userUID).set(userData);
+  return admin.firestore().collection("users").doc(data.userUID).set({
+    emailAddress: data.emailAddress,
+    fullName: data.fullName,
+    phoneNumber: data.phoneNumber,
+    city: data.city,
+    gender: data.gender,
+    department: data.department,
+    hireDate: data.hireDate,
+    isPermanent: data.isPermanent,
+    isAdmin: data.isAdmin,
+  });
 });
 
 exports.storeAdminData = functions.https.onCall((data, context) => {
-  const userUID = data.userUID;
-  const emailAddress = data.emailAddress;
-  const fullName = data.fullName;
-  const phoneNumber = data.phoneNumber;
-  const city = data.city;
-  const gender = data.gender;
-  const department = data.departmentId;
-  const hireDate = data.hireDate;
-  const isPermanent = data.isPermanent;
-  const isAdmin = data.isAdmin;
-  const adminData = {
-    emailAddress: emailAddress,
-    fullName: fullName,
-    phoneNumber: phoneNumber,
-    city: city,
-    gender: gender,
-    departmentId: department,
-    hireDate: hireDate,
-    isPermanent: isPermanent,
-    isAdmin: isAdmin,
-  };
-  return admin.firestore().collection("admins").doc(userUID).set(adminData);
+  return admin.firestore().collection("admins").doc(data.userUID).set({
+    emailAddress: data.emailAddress,
+    fullName: data.fullName,
+    phoneNumber: data.phoneNumber,
+    city: data.city,
+    gender: data.gender,
+    department: data.department,
+    hireDate: data.hireDate,
+    isPermanent: data.isPermanent,
+    isAdmin: data.isAdmin,
+  });
 });
 
 // auth trigger (user deleted)
@@ -75,12 +53,20 @@ exports.userDeleted = functions.auth.user().onDelete((user) => {
 
 exports.deleteAdmin = functions.https.onCall((data, context) => {
   const doc = admin.firestore().collection("admins").doc(data.uid);
-  return doc.delete();
+  admin.auth().deleteUser(data.uid).then(() => {
+    return doc.delete();
+  }).catch((error) => {
+    console.log("there was an error deleting admin", error);
+  });
 });
 
 exports.deleteClient = functions.https.onCall((data, context) => {
   const doc = admin.firestore().collection("users").doc(data.uid);
-  return doc.delete();
+  admin.auth().deleteUser(data.uid).then(() => {
+    return doc.delete();
+  }).catch((error) => {
+    console.log("there was an error deleting user", error);
+  });
 });
 
 /* add cable data */
@@ -92,5 +78,53 @@ exports.addCableData = functions.https.onCall((data, context) => {
         "only authenticated users can add data"
     );
   }
-  return admin.firestore().collection("cable_data").add(data);
+  return admin.firestore().collection("cable_data").add({
+    city: data.city,
+    details: data.details,
+    coord: {
+      lat: data.lat,
+      lng: data.lng,
+    },
+    location: data.location,
+  });
+});
+
+exports.updateCableData = functions.https.onCall((data, context) => {
+  return "Null";
+});
+
+exports.deleteCableData = functions.https.onCall((data, context) => {
+  const doc = admin.firestore().collection("cable_data").doc(data.uid);
+  return doc.delete();
+});
+
+/* add report */
+exports.addReport = functions.https.onCall((data, context) => {
+  /* throw error if not authenticated */
+  if (!context.auth) {
+    throw new functions.https.HttpsError(
+        "unauthenticated",
+        "only authenticated users can add data"
+    );
+  }
+  return admin.firestore().collection("reports").add({
+    fullName: data.fullName,
+    emailAddress: data.emailAddress,
+    location: data.location,
+    description: data.description,
+    level: data.level,
+    title: data.title,
+    reportDate: data.reportDate,
+    userUID: data.userUID,
+    coord: {
+      lat: data.lat,
+      lng: data.lng,
+    },
+  });
+});
+
+/* delete report */
+exports.deleteReport = functions.https.onCall((data, context) => {
+  const doc = admin.firestore().collection("reports").doc(data.uid);
+  return doc.delete();
 });

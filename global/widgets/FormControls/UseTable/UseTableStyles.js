@@ -1,8 +1,6 @@
-import { makeStyles } from "@material-ui/core";
-import {red} from '@material-ui/core/colors';
+import {makeStyles} from "@mui/styles";
 
-export const UseTableStyles = makeStyles(
-    theme => ({
+export const UseTableStyles = makeStyles(theme => ({
         table: {
             marginTop: theme.spacing(3),
             '& thead th': {

@@ -1,5 +1,5 @@
 import MapWrapper from "./Map/MapWrapper";
-const mapApiKey = "AIzaSyBxez--w-bonusq592_-nLeqakIAXje2BU";
+const mapApiKey = process.env.APIKEY || "AIzaSyBxez--w-bonusq592_-nLeqakIAXje2BU";
 
 const GoogleMapView = () => {
 

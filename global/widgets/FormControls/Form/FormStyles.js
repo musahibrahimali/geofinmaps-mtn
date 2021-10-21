@@ -1,7 +1,6 @@
-import { makeStyles } from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
 
-export const FormStyles = makeStyles(
-    theme => ({
+export const FormStyles = makeStyles(theme => ({
         root: {
             "& .MuiFormControl-root": {
                 width: "100%",

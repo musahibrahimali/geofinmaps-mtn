@@ -1,20 +1,25 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import {IconButton, InputAdornment, Paper} from "@material-ui/core";
-import {SignInFormStyles} from "./SignInFormStyles";
-import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
-import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import {
+    Container,
+    IconButton,
+    InputAdornment,
+    Paper,
+    Typography,
+    Box,
+    Grid,
+    Avatar,
+} from "@mui/material";
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import {CheckBox, CopyRight, Form, FormButton, InputField, UseForm} from "../../../../global/global";
 import actionTypes from '../../../../Utils/Utils';
 import {useStateValue} from "../../../../provider/AppState";
 import firebase from 'firebase';
+import {SignInFormStyles} from "./SignInFormStyles";
+import {useRouter} from "next/router";
 
 const initialValues = {
     id: 0,
@@ -29,6 +34,7 @@ const SignInForm = () => {
     const [dispatch] = useStateValue();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const router = useRouter();
 
     /* validate form */
     const handlePasswordVisible = (event) => {
@@ -85,7 +91,7 @@ const SignInForm = () => {
                         setErrorMessage("Invalid password");
                         break;
                     default:
-                        setErrorMessage("A network error occured");
+                        setErrorMessage("A network error occurred");
                         break;
                 }
             })
@@ -142,7 +148,7 @@ const SignInForm = () => {
                                         value={values.password}
                                         onChange={handleInputChange}
                                         error={errors.password}
-                                        inputIcon={<LockOutlinedIcon color="secondary"/>}
+                                        inputIcon={<LockOpenOutlinedIcon color="secondary"/>}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
@@ -167,14 +173,14 @@ const SignInForm = () => {
                                         onChange={handleInputChange}
                                     />
 
-                                    <div className="mb-4 w-full flex justify-center items-center">
-                                        <FormButton
-                                            type="submit"
-                                            text="Sign In"
-                                            color="secondary"
-                                        />
-                                    </div>
                                 </Grid>
+                                <div className="flex w-full justify-center items-center">
+                                    <FormButton
+                                        type="submit"
+                                        text="Sign In"
+                                        color="secondary"
+                                    />
+                                </div>
 
                                 <Grid container>
                                     <Grid item xs>
@@ -190,8 +196,8 @@ const SignInForm = () => {
                                                 {" "}
                                                 <span
                                                     className="text-brand hover:underline hover:text-brand-blue dark:text-brand dark:hover:text-brand-blue">
-                                            Sign Up
-                                        </span>
+                                                    Sign Up
+                                                </span>
                                             </a>
                                         </Link>
                                     </Grid>

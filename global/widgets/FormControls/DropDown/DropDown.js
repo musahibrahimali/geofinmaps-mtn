@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormControl, InputLabel, MenuItem, Select, FormHelperText } from '@material-ui/core';
+import { FormControl, InputLabel, MenuItem, Select, FormHelperText } from '@mui/material';
 
 function DropDown(props) {
     const { name, label, value, error = null, onChange, options } = props;

@@ -1,23 +1,33 @@
 import React, {useEffect} from 'react';
 import {useStateValue} from "../../provider/AppState";
-import { ThemeProvider } from '@material-ui/core/styles';
 import {LayoutStyles} from "./LayoutStyles";
-import {createTheme, CssBaseline, Paper} from "@material-ui/core";
 import actionTypes from '../../Utils/Utils';
-import {red} from "@material-ui/core/colors";
-import {AppDrawer, ClientNavbar, Footer, Header, SideBar} from "../global";
+import {AppDrawer, Footer, SideBar} from "../global";
 import firebase from 'firebase';
+import { ThemeProvider } from '@mui/material/styles';
+import {createTheme} from "@mui/material";
 
 const Layout = (props) => {
     /* props */
     const {children} = props;
     const styles = LayoutStyles();
     /* data layer */
-    const [{ theme, isDrawerOpen, isAdmin, user }, dispatch] = useStateValue();
+    const [{ theme, isDrawerOpen, isAdmin }, dispatch] = useStateValue();
 
     const appTheme = createTheme({
         palette: {
-            type: theme ? 'dark': 'light',
+            mode: theme ? "dark" : "light", // toggle light and dark theme
+            ...(!theme
+                ? {
+                    // palette values for light mode
+
+                }
+                : {
+                    // palette values for dark mode
+                    custom_paper: {
+                        main: '#121212',
+                    }
+                }),
         },
     });
 
@@ -74,7 +84,6 @@ const Layout = (props) => {
 
     return (
         <ThemeProvider theme={appTheme}>
-            <CssBaseline/>
             <div className={theme ? "dark" : ""}>
                 {
                     isAdmin ?
@@ -84,7 +93,7 @@ const Layout = (props) => {
                                 <SideBar handleOpenDrawer={handleOpenDrawer} />
                             </div>
 
-                            <Paper classes={{root: styles.paper__shadow}} className={styles.main}>
+                            <div className="bg-white dark:bg-gray-900">
                                 <div>
                                     <AppDrawer handleOpenDrawer={handleOpenDrawer} />
                                 </div>
@@ -94,13 +103,13 @@ const Layout = (props) => {
 
                                 {/*/!* footer for all pages *!/*/}
                                 <Footer />
-                            </Paper>
+                            </div>
                         </div> :
 
                         /* user is not an admin */
                         <div>
                             {/* body content of the app */}
-                            <div className="h-full bg-white dark:bg-gray-800 z-30">
+                            <div className="bg-white dark:bg-gray-900 h-full z-30">
                                 {/* side bar and its content goes in here */}
                                 <div>
                                     <AppDrawer handleOpenDrawer={handleOpenDrawer} />
@@ -120,7 +129,6 @@ const Layout = (props) => {
                         </div>
                 }
             </div>
-
         </ThemeProvider>
     );
 };

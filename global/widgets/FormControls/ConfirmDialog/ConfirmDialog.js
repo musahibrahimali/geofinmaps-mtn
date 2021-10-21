@@ -1,8 +1,8 @@
 import React from 'react';
-import {ConfirmDialogStyles} from "./ConfirmDialogStyles";
-import {Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography} from "@material-ui/core";
+import {Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
 import {FormButton} from "../controls";
-import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
+import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
+import {ConfirmDialogStyles} from "./ConfirmDialogStyles";
 
 const ConfirmDialog = (props) => {
 

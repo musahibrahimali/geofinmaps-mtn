@@ -47,7 +47,7 @@ function AdminHome(props) {
     return (
         <div className="mt-16">
             {/* statistics */}
-            <div className="grid md:grid-cols-3 gap-2 bg-white dark:bg-gray-900">
+            <div className="grid md:grid-cols-3 gap-2 bg-white">
                 <StatisticsCard
                     notDash={notDash}
                     itemTitle={"Total Users"}
@@ -65,7 +65,7 @@ function AdminHome(props) {
                 />
             </div>
             <div className="mt-4">
-                <div className="grid md:grid-cols-3 gap-2 bg-white dark:bg-gray-900">
+                <div className="grid md:grid-cols-3 gap-2 bg-white">
                     <StatisticsCard
                         normalDash={normalDash}
                         itemTitle={"Normal Reports"}
@@ -83,14 +83,14 @@ function AdminHome(props) {
                     />
                 </div>
                 <div className="mt-8 mx-4 grid md:grid-cols-2 grid-rows-1 gap-2">
-                    <div className="bg-white dark:bg-gray-100 hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
+                    <div className="bg-white hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
                         <BarChart
                             normalReports={normalReports}
                             warningReports={warningReports}
                             criticalReports={criticalReports}
                         />
                     </div>
-                    <div className="bg-white dark:bg-gray-100 hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
+                    <div className="bg-white hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
                         <DoughnutChart
                             normalReports={normalReports}
                             warningReports={warningReports}

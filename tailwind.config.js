@@ -44,6 +44,7 @@ module.exports = {
         'auth-landing': "url('https://source.unsplash.com/random')",
         'sign-up': "url('https://source.unsplash.com/random')",
         'sign-in': "url('https://source.unsplash.com/random')",
+        'cable': "url('https://source.unsplash.com/random')",
       }),
 
       'animation': {

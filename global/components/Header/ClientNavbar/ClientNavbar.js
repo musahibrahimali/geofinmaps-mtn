@@ -1,20 +1,24 @@
 import React, {useState} from 'react';
 import Link from 'next/link';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    Badge,
+    MenuItem,
+    Menu,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import {ClientNavbarStyles} from "./ClientNavbarStyles";
 import {useStateValue} from "../../../../provider/AppState";
 import {useRouter} from "next/router";
+import firebase from 'firebase';
+import {Notification} from "../../../global";
 
 const ClientNavbar = (props) => {
     const {handleOpenDrawer} = props;
@@ -23,18 +27,38 @@ const ClientNavbar = (props) => {
     const styles = ClientNavbarStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+    const [signIn, setSignIn] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(signIn){
+            setNotify({
+                isOpen: true,
+                message: "Sign in Successful",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "Sign Out Successful",
+                type: "success"
+            });
+        }
+
+    }
+
     const handleSignInClick = () => {
         handleMenuClose();
-        router.push('/auth').then(r => console.log("log in page"));
+        router.push('/auth').then(() => console.log("log in page"));
     }
 
     const handleAdminSignInClick = () => {
         handleMenuClose();
-        router.push('/admin').then(r => console.log("admin page"));
+        router.push('/admin').then(() => console.log("admin page"));
     }
 
     const handleProfileMenuOpen = (event) => {
@@ -54,6 +78,15 @@ const ClientNavbar = (props) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    /* functions */
+    const handleSignOut = () => {
+        firebase.auth().signOut().then(() => {
+            setSignIn(false);
+            notifyUser();
+        });
+        handleMenuClose();
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -66,7 +99,7 @@ const ClientNavbar = (props) => {
             onClose={handleMenuClose}
         >
             {user ? <MenuItem onClick={handleMenuClose}>Profile</MenuItem> : <div> </div>}
-            {user ? <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem> : <div> </div>}
+            {user ? <MenuItem onClick={handleSignOut}>Sign Out</MenuItem> : <div> </div>}
             {user ? <div> </div> : <MenuItem onClick={handleSignInClick}>Sign In</MenuItem>}
             {user ? <div> </div> : <MenuItem onClick={handleAdminSignInClick}>Admin</MenuItem>}
         </Menu>
@@ -106,7 +139,7 @@ const ClientNavbar = (props) => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircleIcon />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -114,50 +147,59 @@ const ClientNavbar = (props) => {
     );
 
     return (
-        <div className={styles.grow}>
-            <AppBar position="static">
-                <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={styles.menuButton}
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleOpenDrawer}>
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography className={styles.title} variant="h6" noWrap>
-                        <Link href="/">
-                            <a>GeofinMaps</a>
-                        </Link>
-                    </Typography>
-                    <div className={styles.grow} />
-                    <div className={styles.sectionDesktop}>
+        <>
+            <div className={styles.grow}>
+                <AppBar position="static">
+                    <Toolbar>
                         <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit">
-                            <AccountCircle />
-                        </IconButton>
-                    </div>
-                    <div className={styles.sectionMobile}>
-                        <IconButton
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
+                            edge="start"
+                            className={styles.menuButton}
                             color="inherit"
-                        >
-                            <MoreIcon />
+                            aria-label="open drawer"
+                            onClick={handleOpenDrawer}>
+                            <MenuIcon />
                         </IconButton>
-                    </div>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </div>
+                        <Typography className={styles.title} variant="h6" noWrap>
+                            <Link href="/">
+                                <a>GeofinMaps</a>
+                            </Link>
+                        </Typography>
+                        <div className={styles.grow} />
+                        <div className={styles.sectionDesktop}>
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit">
+                                <AccountCircleIcon />
+                            </IconButton>
+                        </div>
+                        <div className={styles.sectionMobile}>
+                            <IconButton
+                                aria-label="show more"
+                                aria-controls={mobileMenuId}
+                                aria-haspopup="true"
+                                onClick={handleMobileMenuOpen}
+                                color="inherit"
+                            >
+                                <MoreVertIcon />
+                            </IconButton>
+                        </div>
+                    </Toolbar>
+                </AppBar>
+                {renderMobileMenu}
+                {renderMenu}
+
+            </div>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+        </>
     );
 };
 

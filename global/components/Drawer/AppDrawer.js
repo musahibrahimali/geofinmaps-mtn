@@ -1,13 +1,11 @@
 import React from 'react';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import List from '@material-ui/core/List';
 import {DrawerStyles} from "./DrawerStyles";
 import {useStateValue} from "../../../provider/AppState";
-import {Paper} from "@material-ui/core";
 import MenuItemCard from "./MenuItem/MenuItemCard";
-import PersonIcon from "@material-ui/icons/Person";
-import LockOpenIcon from "@material-ui/icons/LockOpen";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import PersonIcon from '@mui/icons-material/Person';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import {SwipeableDrawer, Paper, List} from "@mui/material";
 
 const AppDrawer = (props) => {
     const {handleOpenDrawer} = props;
@@ -30,30 +28,37 @@ const AppDrawer = (props) => {
                     <List>
                         <MenuItemCard
                             text="Profile"
+                            url={"/admin"}
                             icon={<PersonIcon color="primary"  />}
                         />
                         <MenuItemCard
                             text="Admin"
+                            url={"/admin"}
                             icon={<PersonIcon color="primary"  />}
                         />
                         <MenuItemCard
-                            text="Operator"
+                            text="Operators"
+                            url={"/admin/operators"}
                             icon={<PersonIcon color="primary"  />}
                         />
                         <MenuItemCard
                             text="Reports"
+                            url={"/admin/reports"}
                             icon={<PersonIcon color="primary"  />}
                         />
                         <MenuItemCard
-                            text="operators"
+                            text="Add Cable Data"
+                            url={"/admin/addcable"}
                             icon={<PersonIcon color="primary"  />}
                         />
                         <MenuItemCard
                             text="Sign In"
+                            url={"/admin/signin"}
                             icon={<LockOpenIcon color="primary" />}
                         />
                         <MenuItemCard
                             text="Sign Out"
+                            url={"/admin"}
                             icon={<ExitToAppIcon color="primary" />}
                         />
                     </List>

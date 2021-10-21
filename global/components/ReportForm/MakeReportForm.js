@@ -1,27 +1,21 @@
-import React, {useState} from 'react';
-import Grid from "@material-ui/core/Grid";
+import React from 'react';
 import {
-    CheckBox,
+    Grid,
+    Box
+} from "@mui/material";
+import {
     DatePicker,
-    DropDown, Form,
+    Form,
     FormButton,
     InputField,
     RadioControls, UseForm
 } from "../../widgets/FormControls/controls";
-import PersonOutlineOutlinedIcon from "@material-ui/icons/PersonOutlineOutlined";
-import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import {IconButton, InputAdornment} from "@material-ui/core";
-import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
-import CallIcon from "@material-ui/icons/Call";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import {getDepartmentCollection} from "../../Services/EmployeeService";
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
 import {MakeReportFormStyles} from './MakeReportFormStyles';
-import Box from "@material-ui/core/Box";
 import {CopyRight} from "../../widgets/globalWidgets";
-import {useStateValue} from "../../../provider/AppState";
-import {useRouter} from "next/router";
 
 const initialValues = {
     id: 0,
@@ -104,7 +98,7 @@ function MakeReportForm(props) {
                                 value={values.fullName}
                                 onChange={handleInputChange}
                                 error={errors.fullName}
-                                inputIcon={<PersonOutlineOutlinedIcon color="primary" />}
+                                inputIcon={<PersonOutlineIcon color="primary" />}
                             />
 
                             <InputField
@@ -126,7 +120,7 @@ function MakeReportForm(props) {
                                 value={values.title}
                                 onChange={handleInputChange}
                                 error={errors.title}
-                                inputIcon={<LockOutlinedIcon color="primary" />}
+                                inputIcon={<LockOpenOutlinedIcon color="primary" />}
                             />
 
                             <InputField
@@ -137,7 +131,7 @@ function MakeReportForm(props) {
                                 value={values.location}
                                 onChange={handleInputChange}
                                 error={errors.location}
-                                inputIcon={<LocationCityIcon color="primary" />}
+                                inputIcon={<LocationCityOutlinedIcon color="primary" />}
                             />
 
                             <RadioControls

@@ -8,11 +8,18 @@ import {
     PopUp,
     UseTable
 } from "../../../../global/widgets/FormControls/controls";
-import {InputAdornment, Paper, TableBody, TableCell, TableRow, Toolbar} from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import AddIcon from "@material-ui/icons/Add";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import CloseIcon from "@material-ui/icons/Close";
+import {
+    InputAdornment,
+    Paper,
+    TableBody,
+    TableCell,
+    TableRow,
+    Toolbar
+} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import AddIcon from '@mui/icons-material/Add';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 import {useRouter} from "next/router";
 
 function ReportContent(props) {
@@ -106,7 +113,7 @@ function ReportContent(props) {
     }
 
     const handleOnClick = (itemId) => {
-        router.push(`/reports/${itemId}`).then(results => console.log(results));
+        router.push(`/admin/reports/${itemId}`).then(() => {});
     }
 
     return (
@@ -147,7 +154,7 @@ function ReportContent(props) {
                                     <TableCell>
                                         {/* edit */}
                                         <ActionButton color="primary" onClick={() => {openInPopUp(item)}}>
-                                            <EditOutlinedIcon fontSize="small" />
+                                            <ModeEditOutlineOutlinedIcon fontSize="small" />
                                         </ActionButton>
                                         {/* delete */}
                                         <ActionButton

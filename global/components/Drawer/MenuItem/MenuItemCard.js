@@ -1,18 +1,21 @@
 import React from 'react';
-import {Divider, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
+import Link from 'next/link';
+import {Divider, ListItem, ListItemIcon, ListItemText} from "@mui/material";
 
 const MenuItemCard = (props) => {
-    const {text, icon} = props;
+    const {text, icon, url} = props;
     return (
-        <>
-            <ListItem button>
-                <ListItemIcon>
-                    {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-            </ListItem>
-            <Divider />
-        </>
+        <Link href={url}>
+            <a>
+                <ListItem button>
+                    <ListItemIcon>
+                        {icon}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                </ListItem>
+                <Divider />
+            </a>
+        </Link>
     );
 };
 

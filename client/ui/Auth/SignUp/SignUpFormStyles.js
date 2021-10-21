@@ -1,4 +1,4 @@
-import {makeStyles} from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
 
 export const SignUpFormStyles = makeStyles((theme) => ({
     root: {
@@ -16,11 +16,12 @@ export const SignUpFormStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    },avatar: {
+    },
+    avatar: {
         width: "100px",
         height: "100px",
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
     },
 
     container: {
@@ -41,7 +42,7 @@ export const SignUpFormStyles = makeStyles((theme) => ({
         backgroundImage: `url(https://source.unsplash.com/random)`,
         backgroundRepeat: 'no-repeat',
         backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[800],
+            theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[800],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         // marginLeft: -theme.spacing(2),

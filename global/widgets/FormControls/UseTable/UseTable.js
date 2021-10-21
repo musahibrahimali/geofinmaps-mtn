@@ -6,7 +6,7 @@ import {
     TableCell,
     TablePagination,
     TableSortLabel,
-} from '@material-ui/core';
+} from '@mui/material';
 import { UseTableStyles } from './UseTableStyles';
 
 const UseTable = (records, headCells, filterFn) => {

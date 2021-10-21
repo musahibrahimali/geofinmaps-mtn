@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, Marker, Polyline } from 'react-google-maps';
 import InfoWindow from "react-google-maps/lib/components/InfoWindow";
 import {ConfirmDialog, FormButton, Notification, PopUp, ReportForm} from "../../../../global/global";
+import firebase from 'firebase';
+import {useStateValue} from "../../../../provider/AppState";
 const initialPosition = { lat: 6.673175, lng: -1.565423 };
 
 const fibreLayingCoordinates = [
@@ -39,7 +41,7 @@ const Map = () => {
     return (
         <>
             <GoogleMap
-                defaultZoom={18.0}
+                defaultZoom={16.0}
                 defaultCenter={position}
                 defaultOptions={{
                     mapTypeControlOptions: {
@@ -70,11 +72,31 @@ const Map = () => {
 }
 
 const DefaultMarker = (props) => {
-    const {item } = props;
+    const { item } = props;
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
     const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title:"", subTitle:""});
     const [markerOpen, setMarkerOpen] = useState(false);
     const [openPopUp, setOpenPopUp] = useState(false);
+    const [add, setAdd] = useState(false);
+    const [{user}] = useStateValue();
+
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(add){
+            setNotify({
+                isOpen: true,
+                message: "report submitted Successfully",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "Report could not be submitted",
+                type: "error"
+            });
+        }
+    }
+
     const onToggleOpen = () => {
         setMarkerOpen(!markerOpen);
     }
@@ -85,19 +107,34 @@ const DefaultMarker = (props) => {
     }
 
     const AddReport = ({report}) => {
-        console.log("new report >>> ", report);
+            const data = {
+                userUID: user.uid,
+                fullName: report.fullName,
+                emailAddress: report.emailAddress,
+                location: report.location,
+                description: report.description,
+                level: report.level,
+                title : report.title,
+                reportDate: report.reportDate,
+                coord: {
+                    lat: item.lat,
+                    lng: item.lng,
+                }
+            }
+        const addReport = firebase.functions.httpsCallable('addReport');
+        addReport(data).then(() => {
+            setAdd(true);
+        }).catch(() => {
+
+        })
     }
 
     // add or edit entry
-    const addOrEdit = (report, handleResetForm) => {
+    const addOrEdit = (report, item, handleResetForm) => {
         handleResetForm();
-        setOpenPopUp(false);
         AddReport(report);
-        setNotify({
-            isOpen: true,
-            message: "Submitted Successfully",
-            type: "success"
-        })
+        setOpenPopUp(false);
+        notifyUser();
     }
 
     return(

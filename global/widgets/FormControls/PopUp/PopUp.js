@@ -1,9 +1,8 @@
 import React from 'react';
-import {Dialog, DialogContent, DialogTitle, Typography} from "@material-ui/core";
-import CloseIcon from '@material-ui/icons/Close';
+import {Dialog, DialogContent, DialogTitle, Typography} from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import {PopUpStyles} from "./PopUpStyles";
 import {ActionButton} from "../controls";
-import {red} from "@material-ui/core/colors";
 
 const PopUp = (props) => {
 

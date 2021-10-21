@@ -1,12 +1,14 @@
 import React from 'react';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
-import {makeStyles, useTheme} from "@material-ui/core";
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
-import NightsStayIcon from '@material-ui/icons/NightsStay';
+import {
+    FormGroup,
+    FormControlLabel,
+    Switch,
+} from '@mui/material';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import NightsStayIcon from '@mui/icons-material/NightsStay';
 import {useStateValue} from "../../../provider/AppState";
 import actionTypes from "../../../Utils/Utils";
+import {makeStyles} from "@mui/styles";
 
 const IOSSwitchStyles = makeStyles(theme => ({
     root: {
@@ -28,7 +30,7 @@ const IOSSwitchStyles = makeStyles(theme => ({
         },
         '&$focusVisible $thumb': {
             color: '#000000',
-            border: `6px solid ${theme.palette.type === "light" ? theme.palette.common.black : theme.palette.common.white}`,
+            border: `6px solid ${theme.palette.mode === "light" ? theme.palette.common.black : theme.palette.common.white}`,
         },
     },
     thumb: {

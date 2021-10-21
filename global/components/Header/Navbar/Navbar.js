@@ -1,19 +1,23 @@
+import React, {useState} from "react";
 import clsx from 'clsx';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    Badge,
+    MenuItem,
+    Menu,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import {useStateValue} from "../../../../provider/AppState";
 import {NavbarStyles} from "./NavbarStyles";
-import React, {useState} from "react";
-import Badge from "@material-ui/core/Badge";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import {useRouter} from "next/router";
+import {Notification} from "../../../widgets/FormControls/controls";
+import firebase from 'firebase';
 
 const menuId = 'primary-search-account-menu';
 const Navbar = (props) => {
@@ -24,9 +28,28 @@ const Navbar = (props) => {
     const [{user}] = useStateValue();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+    const [signIn, setSignIn] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(signIn){
+            setNotify({
+                isOpen: true,
+                message: "Sign in Successful",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "Sign Out Successful",
+                type: "success"
+            });
+        }
+    }
 
     const handleSignInClick = () => {
         handleMenuClose();
@@ -51,8 +74,12 @@ const Navbar = (props) => {
         handleMobileMenuClose();
     };
 
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
+    const handleSignOut = () => {
+        firebase.auth().signOut().then(() => {
+            setSignIn(false);
+            notifyUser();
+        });
+        handleMenuClose();
     };
 
     const renderMenu = (
@@ -65,7 +92,7 @@ const Navbar = (props) => {
             open={isMenuOpen}
             onClose={handleMenuClose}>
                 {user ? <MenuItem onClick={handleMenuClose}>Profile</MenuItem> : <div> </div>}
-                {user ? <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem> : <div> </div>}
+                {user ? <MenuItem onClick={handleSignOut}>Sign Out</MenuItem> : <div> </div>}
                 {user ? <div> </div> : <MenuItem onClick={handleSignInClick}>Sign In</MenuItem>}
                 {user ? <div> </div> : <MenuItem onClick={handleAdminSignInClick}>Admin</MenuItem>}
         </Menu>
@@ -105,7 +132,7 @@ const Navbar = (props) => {
                     aria-haspopup="true"
                     color="inherit"
                 >
-                    <AccountCircle />
+                    <AccountCircleIcon />
                 </IconButton>
                 <p>Profile</p>
             </MenuItem>
@@ -154,7 +181,7 @@ const Navbar = (props) => {
                             aria-haspopup="true"
                             onClick={handleProfileMenuOpen}
                             color="inherit">
-                            <AccountCircle />
+                            <AccountCircleIcon />
                         </IconButton>
                     </div>
 
@@ -162,6 +189,12 @@ const Navbar = (props) => {
             </AppBar>
             {renderMenu}
             {renderMobileMenu}
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
     );
 };

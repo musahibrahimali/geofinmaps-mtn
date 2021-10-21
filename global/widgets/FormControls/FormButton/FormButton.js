@@ -1,6 +1,6 @@
-import { Button } from '@material-ui/core';
 import React from 'react';
 import { FormButtonStyles } from './FormButtonStyles';
+import { Button } from '@mui/material';
 
 function FormButton(props) {
 

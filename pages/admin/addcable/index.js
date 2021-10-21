@@ -13,7 +13,6 @@ const initialValues = {
     location: '',
     longitude: '',
     latitude: '',
-    cableSpecification: '',
     details: '',
 };
 
@@ -64,15 +63,17 @@ const AddCable = () => {
     const handleOnSubmit = async (event) => {
         event.preventDefault();
         if (validateForm()) {
-            await firebase.firestore().collection('laying').add({
+            const addCableData = firebase.functions().httpsCallable('addCableData');
+            const data = {
                 location: values.location,
-                coordinates: {
-                    lat: values.latitude,
-                    lon: values.longitude,
+                cord: {
+                    lat: values.longitude,
+                    lng: values.latitude,
                 },
-                cableSpecification: values.cableSpecification,
+                city: values.location,
                 details: values.details,
-            });
+            }
+            await addCableData(data).then(() => {});
         }
     }
 
@@ -96,14 +97,8 @@ const AddCable = () => {
             <div className="pt-20 mx-12 pb-8">
                 <div className="h-full shadow-md border border-gray-200 dark:border-gray-600
                         mb-4 rounded-xl bg-white dark:bg-gray-900 overflow-hidden mt-6 grid gap-0 grid-cols-6 grid-rows-1" >
-                    <div className="col-span-2 h-full w-full bg-yellow-500 dark:bg-gray-900 flex justify-center items-center">
-                        <Image
-                            src={Image13}
-                            width={1000}
-                            height={1000}
-                            alt="cable graphics"
-                            className="w-full h-full object-cover"
-                        />
+                    <div className="col-span-2 h-full w-full bg-cable flex justify-center items-center">
+
                     </div>
                     <div className="col-span-4 h-full overflow-auto flex justify-center items-center mx-0 border-l border-gray-200 dark:border-gray-600">
                         <div className="w-full h-full p-6 bg-white dark:bg-gray-900">
@@ -156,22 +151,6 @@ const AddCable = () => {
                                         placeholder="-123.2345"
                                         className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-gray-200 mt-2 border focus:border-yellow-500 focus:bg-white focus:outline-none"
                                         required
-                                    />
-                                    <p className="text-sm text-red-500">{errors ? errors.latitude : ""}</p>
-                                </div>
-
-                                <div className="mt-4">
-                                    <label className="block  text-gray-700 text-lg md:text-xl dark:text-gray-200">
-                                        Cable Specification
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="cableSpecification"
-                                        value={values.cableSpecification}
-                                        onChange={handleOnValueChange}
-                                        placeholder="cable specification"
-                                        minLength="6"
-                                        className="w-full px-4 py-3 rounded-lg bg-gray-200 dark:bg-gray-200 mt-2 border focus:border-yellow-500 focus:bg-white focus:outline-none"
                                     />
                                     <p className="text-sm text-red-500">{errors ? errors.latitude : ""}</p>
                                 </div>

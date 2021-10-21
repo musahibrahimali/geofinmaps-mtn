@@ -1,5 +1,5 @@
 import React from 'react';
-import {InputAdornment, TextField} from '@material-ui/core';
+import {InputAdornment, TextField} from '@mui/material';
 
 function InputField(props) {
     const { name, label, error = null, maxRows, rows, multiline, placeHolder, onChange, value, inputIcon, required, endAdornment, ...other } = props;

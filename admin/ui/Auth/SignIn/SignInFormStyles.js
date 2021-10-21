@@ -1,4 +1,4 @@
-import {makeStyles} from "@material-ui/core";
+import {makeStyles} from "@mui/styles";
 
 export const SignInFormStyles = makeStyles((theme) => ({
     root: {
@@ -27,7 +27,7 @@ export const SignInFormStyles = makeStyles((theme) => ({
         backgroundImage: `url(https://source.unsplash.com/random)`,
         backgroundRepeat: 'no-repeat',
         backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[800],
+            theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[800],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },

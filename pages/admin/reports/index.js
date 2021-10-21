@@ -26,7 +26,7 @@ const Reports = (props) => {
     return (
         <>
             <Header handleOpenDrawer={handleOpenDrawer} />
-            <ReportContent />
+            <ReportContent reports={reports} />
         </>
     );
 }
