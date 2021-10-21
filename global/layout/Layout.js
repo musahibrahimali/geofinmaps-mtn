@@ -4,8 +4,7 @@ import {LayoutStyles} from "./LayoutStyles";
 import actionTypes from '../../Utils/Utils';
 import {AppDrawer, Footer, SideBar} from "../global";
 import firebase from 'firebase';
-import { ThemeProvider } from '@mui/material/styles';
-import {createTheme} from "@mui/material";
+import { ThemeProvider, createTheme } from "@material-ui/core";
 
 const Layout = (props) => {
     /* props */

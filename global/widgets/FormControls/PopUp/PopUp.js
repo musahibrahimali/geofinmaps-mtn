@@ -1,6 +1,6 @@
 import React from 'react';
-import {Dialog, DialogContent, DialogTitle, Typography} from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
+import {Dialog, DialogContent, DialogTitle, Typography} from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 import {PopUpStyles} from "./PopUpStyles";
 import {ActionButton} from "../controls";
 

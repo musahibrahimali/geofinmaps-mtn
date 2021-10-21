@@ -8,12 +8,12 @@ import {
     Badge,
     MenuItem,
     Menu,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+} from "@material-ui/core";
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {ClientNavbarStyles} from "./ClientNavbarStyles";
 import {useStateValue} from "../../../../provider/AppState";
 import {useRouter} from "next/router";

@@ -10,14 +10,14 @@ import {
     Box,
     Grid,
     Avatar,
-} from "@mui/material";
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-import CallIcon from '@mui/icons-material/Call';
+} from "@material-ui/core";
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import CallIcon from '@material-ui/icons/Call';
 import firebase from 'firebase';
 
 import {
@@ -31,7 +31,7 @@ import {
     InputField,
     Notification,
     RadioControls,
-    UseForm
+    UseForm,
 } from "../../../../global/global";
 import {useStateValue} from "../../../../provider/AppState";
 import {useRouter} from "next/router";
@@ -182,7 +182,7 @@ const SignUpForm = () => {
     return (
         <>
             <Paper classes={{root: styles.root}} className={styles.image}>
-                <Container component="main" maxWidth="md" className="bg-white dark:bg-gray-800 mb-4 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
+                <Container component="main" maxWidth="md" className="bg-white dark:bg-gray-300 mb-4 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
                     <div className="mb-6 flex flex-col items-center justify-center">
                         <Avatar className={styles.avatar} />
                         <Typography component="h1" variant="h5">
@@ -322,11 +322,20 @@ const SignUpForm = () => {
                                 </p>
                             </div>
 
-                            <FormButton
-                                type="submit"
-                                text="Register"
-                                color="secondary"
-                            />
+                            <div className={styles.mainContainer}>
+                                <FormButton
+                                    type="submit"
+                                    text="Register"
+                                    color="primary"
+                                />
+                                <FormButton
+                                    type="submit"
+                                    text="Reset"
+                                    variant="outlined"
+                                    color="secondary"
+                                    onClick={handleResetForm}
+                                />
+                            </div>
 
                             {/* create account */}
                             <div className="flex flex-col justify-center items-center">

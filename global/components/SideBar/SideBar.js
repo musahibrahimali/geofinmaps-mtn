@@ -7,15 +7,15 @@ import {
     IconButton,
     ListItemIcon,
     ListItemText,
-} from '@mui/material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+} from "@material-ui/core";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import InboxIcon from '@mui/icons-material/Inbox';
-import MailIcon from '@mui/icons-material/Mail';
+import InboxIcon from '@material-ui/icons/Inbox';
+import MailIcon from '@material-ui/icons/Mail';
 import {useStateValue} from "../../../provider/AppState";
 import {SideBarStyles} from "./SideBarStyles";
-import {useTheme} from "@mui/styles";
+import {useTheme} from "@material-ui/core";
 
 const SideBar = (props) => {
     const theme = useTheme();

@@ -1,6 +1,6 @@
 import React from 'react';
 import {InputField} from "../../global";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from '@material-ui/icons/Search';
 import {SearchBarStyles} from "./SearchBarStyles";
 
 const SearchBar = (props) => {

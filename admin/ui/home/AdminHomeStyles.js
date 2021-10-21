@@ -1,8 +1,12 @@
-import {makeStyles} from "@mui/styles";
+import {makeStyles} from "@material-ui/core";
 
 export const AdminHomeStyles = makeStyles(theme => ({
         employeePageContent: {
             margin: theme.spacing(5),
+            marginTop: theme.spacing(5),
+            marginRight: theme.spacing(5),
+            marginLeft: theme.spacing(5),
+            marginBottom: theme.spacing(0),
             padding: theme.spacing(3),
         },
         searchInput: {

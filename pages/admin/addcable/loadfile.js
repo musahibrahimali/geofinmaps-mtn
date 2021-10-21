@@ -6,35 +6,75 @@ import {Header} from "../../../global/components/globalComponents";
 import {UploadImage} from '../../../assets/AssetExport';
 import firebase from 'firebase';
 import 'firebase/database';
+import {Notification} from "../../../global/widgets/FormControls/controls";
 
 const LoadFile = () => {
     /* data layer */
     const [{ isDrawerOpen}, dispatch] = useStateValue();
 
-    const [file, setFile] = useState();
+    const [file, setFile] = useState({});
+    const [fileContent, setFileContent] = useState(null);
+
+    const [load, setLoad] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
+
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(load){
+            setNotify({
+                isOpen: true,
+                message: "Data Added successfully",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "There was an error saving data",
+                type: "error"
+            });
+        }
+    }
 
     const handleOnChange = (event) => {
         let selectedFile = event.target.files[0];
+        const reader = new FileReader();
         if (selectedFile.type === 'application/json') {
-            setFile(selectedFile);
+            reader.readAsText(selectedFile);
+            reader.onload = () => {
+                setLoad(true);
+                const data = JSON.parse(reader.result);
+                setFile(selectedFile);
+                setFileContent(data);
+            }
+            reader.onerror = () => {
+                console.log("there was an error");
+            }
         } else {
             alert("The selected file is not supported");
         }
-        console.log(file);
-        console.log(file.name);
     }
 
     const handleOnSubmit = (event) => {
         event.preventDefault();
-        if (file.endsWith('.json')) {
-            file.map((item) => {
-                firebase.firestore()
-                    .collection('laying')
-                    .add(item)
-                    .then(results => console.log(results));
+        if(!file){
+            alert("no file selected");
+        }else{
+            const addCableData = firebase.functions().httpsCallable('addCableData');
+            fileContent.map((item) => {
+                const data = {
+                    city: item.location,
+                    details: item.details,
+                    coord: {
+                        lat: item.coord.lat,
+                        lng: item.coord.lng,
+                    },
+                    location: item.location,
+                };
+                console.log(data);
+                addCableData(data).then(() => {
+                    notifyUser();
+                });
             });
-        } else {
-            alert("The selected file is not supported on this platform");
         }
     }
 
@@ -97,7 +137,9 @@ const LoadFile = () => {
                                 <p className="text-sm text-gray-500 dark:text-gray-300">
                                     <span>File type : json (example {"sample.json"})</span>
                                 </p>
-                                <p className="text-sm text-gray-500 dark:text-gray-300">Selected File: {file ? file.name : "No file"}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-300">
+                                    Selected File: {file ? file.name : "No file"}
+                                </p>
                             </div>
                             <div>
                                 <button type="submit"
@@ -110,6 +152,12 @@ const LoadFile = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
     );
 }

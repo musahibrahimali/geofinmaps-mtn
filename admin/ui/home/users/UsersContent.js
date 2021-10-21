@@ -15,11 +15,11 @@ import {
     TableCell,
     TableRow,
     Toolbar
-} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-import AddIcon from '@mui/icons-material/Add';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import CloseIcon from '@mui/icons-material/Close';
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import AddIcon from "@material-ui/icons/Add";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import CloseIcon from "@material-ui/icons/Close";
 import {useRouter} from "next/router";
 
 function UsersContent(props) {
@@ -117,7 +117,7 @@ function UsersContent(props) {
     }
 
     return (
-        <div className="mt-16">
+        <div className="pt-24">
             <Paper elevation={0} className={styles.employeePageContent}>
                 <Toolbar>
                     <InputField
@@ -154,7 +154,7 @@ function UsersContent(props) {
                                     <TableCell>
                                         {/* edit */}
                                         <ActionButton color="primary" onClick={() => {openInPopUp(item)}}>
-                                            <ModeEditOutlineOutlinedIcon fontSize="small" />
+                                            <EditOutlinedIcon fontSize="small" />
                                         </ActionButton>
                                         {/* delete */}
                                         <ActionButton

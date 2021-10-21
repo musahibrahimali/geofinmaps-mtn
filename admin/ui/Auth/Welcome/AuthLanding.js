@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Options from "./Options/Options";
-import {Container, Paper} from "@mui/material";
+import {Container, Paper} from "@material-ui/core";
 import {WelcomeStyles} from "./WelcomeStyles";
-import EmailIcon from '@mui/icons-material/Email';
+import EmailIcon from '@material-ui/icons/Email';
 
 const AdminAuthLanding = () => {
     const styles = WelcomeStyles();

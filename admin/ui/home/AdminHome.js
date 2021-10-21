@@ -47,7 +47,7 @@ function AdminHome(props) {
     return (
         <div className="mt-16">
             {/* statistics */}
-            <div className="grid md:grid-cols-3 gap-2 bg-white">
+            <div className="grid md:grid-cols-3 gap-2 bg-white dark:bg-gray-900">
                 <StatisticsCard
                     notDash={notDash}
                     itemTitle={"Total Users"}
@@ -65,7 +65,7 @@ function AdminHome(props) {
                 />
             </div>
             <div className="mt-4">
-                <div className="grid md:grid-cols-3 gap-2 bg-white">
+                <div className="grid md:grid-cols-3 gap-2 bg-white dark:bg-gray-900">
                     <StatisticsCard
                         normalDash={normalDash}
                         itemTitle={"Normal Reports"}

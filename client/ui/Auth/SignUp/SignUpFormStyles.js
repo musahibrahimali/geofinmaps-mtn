@@ -1,4 +1,4 @@
-import {makeStyles} from "@mui/styles";
+import {makeStyles} from "@material-ui/core";
 
 export const SignUpFormStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +42,7 @@ export const SignUpFormStyles = makeStyles((theme) => ({
         backgroundImage: `url(https://source.unsplash.com/random)`,
         backgroundRepeat: 'no-repeat',
         backgroundColor:
-            theme.palette.mode === 'light' ? theme.palette.grey[50] : theme.palette.grey[800],
+            theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[800],
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         // marginLeft: -theme.spacing(2),

@@ -1,7 +1,8 @@
 import React from 'react';
-import {Snackbar} from "@mui/material";
-import {Alert} from "@mui/lab";
+import {Snackbar} from "@material-ui/core";
+
 import {NotificationStyles} from "./NotificationStyles";
+import {Alert} from "@material-ui/lab";
 
 const Notification = (props) => {
 

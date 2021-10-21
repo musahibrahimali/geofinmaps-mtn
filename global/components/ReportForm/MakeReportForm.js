@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Grid,
     Box
-} from "@mui/material";
+} from "@material-ui/core";
 import {
     DatePicker,
     Form,
@@ -10,10 +10,10 @@ import {
     InputField,
     RadioControls, UseForm
 } from "../../widgets/FormControls/controls";
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import LocationCityOutlinedIcon from '@mui/icons-material/LocationCityOutlined';
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import LocationCityOutlinedIcon from '@material-ui/icons/LocationCityOutlined';
 import {MakeReportFormStyles} from './MakeReportFormStyles';
 import {CopyRight} from "../../widgets/globalWidgets";
 

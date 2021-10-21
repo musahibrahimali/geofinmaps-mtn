@@ -15,11 +15,11 @@ import {
     TableCell,
     TableRow,
     Toolbar
-} from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-import AddIcon from '@mui/icons-material/Add';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import CloseIcon from '@mui/icons-material/Close';
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import AddIcon from "@material-ui/icons/Add";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import CloseIcon from "@material-ui/icons/Close";
 import {useRouter} from "next/router";
 
 function ReportContent(props) {
@@ -117,7 +117,7 @@ function ReportContent(props) {
     }
 
     return (
-        <div className="mt-16">
+        <div className="pt-24">
             <Paper elevation={0} className={styles.employeePageContent}>
                 <Toolbar>
                     <InputField
@@ -146,15 +146,15 @@ function ReportContent(props) {
                     <TableBody>
                         {
                             RecordsAfterPagingAndSorting().map((item) => (
-                                <TableRow key={item.id} onClick={() => handleOnClick(item.id)}>
+                                <TableRow key={item.id}>
                                     <TableCell>{item.title}</TableCell>
                                     <TableCell>{item.reportType}</TableCell>
                                     <TableCell>{item.author}</TableCell>
                                     <TableCell>{item.location}</TableCell>
                                     <TableCell>
                                         {/* edit */}
-                                        <ActionButton color="primary" onClick={() => {openInPopUp(item)}}>
-                                            <ModeEditOutlineOutlinedIcon fontSize="small" />
+                                        <ActionButton color="primary" onClick={() => handleOnClick(item.id)}>
+                                            <EditOutlinedIcon fontSize="small" />
                                         </ActionButton>
                                         {/* delete */}
                                         <ActionButton

@@ -9,14 +9,14 @@ import {
     Box,
     Grid,
     Avatar,
-} from "@mui/material";
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-import CallIcon from '@mui/icons-material/Call';
+} from "@material-ui/core";
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import PersonOutlinedIcon from '@material-ui/icons/PersonOutlined';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
+import LocationCityIcon from '@material-ui/icons/LocationCity';
+import CallIcon from '@material-ui/icons/Call';
 import firebase from 'firebase';
 
 import {
@@ -177,7 +177,7 @@ const AdminSignUpForm = () => {
     return (
         <>
             <Paper classes={{root: styles.root}} className={styles.image}>
-                <Container component="main" maxWidth="md" className="bg-white dark:bg-gray-800 mb-4 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
+                <Container component="main" maxWidth="md" className="bg-white dark:bg-gray-300 mb-4 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
 
                     <div className="mb-6 flex flex-col items-center justify-center">
                         <Avatar className={styles.avatar}/>
@@ -196,7 +196,7 @@ const AdminSignUpForm = () => {
                                         value={values.fullName}
                                         onChange={handleInputChange}
                                         error={errors.fullName}
-                                        inputIcon={<PersonOutlinedIcon color="secondary" />}
+                                        inputIcon={<PersonOutlinedIcon color="primary" />}
                                     />
                                     <InputField
                                         required
@@ -205,7 +205,7 @@ const AdminSignUpForm = () => {
                                         value={values.emailAddress}
                                         onChange={handleInputChange}
                                         error={errors.emailAddress}
-                                        inputIcon={<EmailOutlinedIcon color="secondary" />}
+                                        inputIcon={<EmailOutlinedIcon color="primary" />}
                                     />
                                     <InputField
                                         required
@@ -215,14 +215,18 @@ const AdminSignUpForm = () => {
                                         value={values.password}
                                         onChange={handleInputChange}
                                         error={errors.password}
-                                        inputIcon={<LockOpenOutlinedIcon color="secondary" />}
+                                        inputIcon={<LockOpenOutlinedIcon color="primary" />}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
                                                     aria-label="toggle password visibility"
                                                     onMouseDown={handlePasswordVisible}
                                                 >
-                                                    {passwordVisible ? <VisibilityOutlinedIcon color="secondary" /> : <VisibilityOffOutlinedIcon color="secondary" />}
+                                                    {
+                                                        passwordVisible ?
+                                                            <VisibilityOutlinedIcon color="primary" /> :
+                                                            <VisibilityOffOutlinedIcon color="primary" />
+                                                    }
                                                 </IconButton>
                                             </InputAdornment>
                                         }
@@ -235,14 +239,18 @@ const AdminSignUpForm = () => {
                                         value={values.confirmPassword}
                                         onChange={handleInputChange}
                                         error={errors.confirmPassword}
-                                        inputIcon={<LockOpenOutlinedIcon color="secondary" />}
+                                        inputIcon={<LockOpenOutlinedIcon color="primary" />}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton
                                                     aria-label="toggle password visibility"
                                                     onMouseDown={handleConfirmPasswordVisible}
                                                 >
-                                                    {confirmPasswordVisible ? <VisibilityOutlinedIcon color="secondary" /> : <VisibilityOffOutlinedIcon color="secondary" />}
+                                                    {
+                                                        confirmPasswordVisible ?
+                                                            <VisibilityOutlinedIcon color="primary" /> :
+                                                            <VisibilityOffOutlinedIcon color="primary" />
+                                                    }
                                                 </IconButton>
                                             </InputAdornment>
                                         }
@@ -254,7 +262,7 @@ const AdminSignUpForm = () => {
                                         value={values.phoneNumber}
                                         onChange={handleInputChange}
                                         error={errors.phoneNumber}
-                                        inputIcon={<CallIcon color="secondary" />}
+                                        inputIcon={<CallIcon color="primary" />}
                                     />
                                 </Grid>
 
@@ -262,6 +270,7 @@ const AdminSignUpForm = () => {
 
                                     <RadioControls
                                         required
+                                        color="primary"
                                         name="gender"
                                         label="Gender"
                                         value={values.gender}
@@ -275,7 +284,7 @@ const AdminSignUpForm = () => {
                                         name="city"
                                         value={values.city}
                                         onChange={handleInputChange}
-                                        inputIcon={<LocationCityIcon color="secondary" />}
+                                        inputIcon={<LocationCityIcon color="primary" />}
                                     />
 
                                     <DropDown
@@ -313,12 +322,12 @@ const AdminSignUpForm = () => {
 
                             <div className={styles.mainContainer}>
                                 <FormButton
-                                    type="submit"
+                                    type="primary"
                                     text="Register"
                                 />
                                 <FormButton
                                     variant="outlined"
-                                    color="secondary"
+                                    color="primary"
                                     size="large"
                                     text="Reset"
                                     onClick={handleResetForm} />

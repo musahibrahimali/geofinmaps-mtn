@@ -1,4 +1,4 @@
-import {makeStyles} from "@mui/styles";
+import {makeStyles} from "@material-ui/core";
 
 export const SignInFormStyles = makeStyles((theme) => ({
     root: {
@@ -15,7 +15,7 @@ export const SignInFormStyles = makeStyles((theme) => ({
         width: "100px",
         height: "100px",
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
     },
     image: {
         height: "100vh",

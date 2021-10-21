@@ -9,12 +9,12 @@ import {
     Box,
     Grid,
     Avatar,
-} from "@mui/material";
-import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import {CheckBox, CopyRight, Form, FormButton, InputField, UseForm} from "../../../../global/global";
+} from "@material-ui/core";
+import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
+import {CheckBox, CopyRight, Form, FormButton, InputField, Notification, UseForm} from "../../../../global/global";
 import firebase from 'firebase';
 import {useStateValue} from "../../../../provider/AppState";
 import actionTypes from "../../../../Utils/Utils";
@@ -34,6 +34,26 @@ const AdminSignInForm = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [{}, dispatch] = useStateValue();
+
+    const [signIn, setSignIn] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
+
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(signIn){
+            setNotify({
+                isOpen: true,
+                message: "Sign in Successful",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "Sign not Successful",
+                type: "error"
+            });
+        }
+    }
 
     /* validate form */
     const handlePasswordVisible = (event) => {
@@ -65,17 +85,17 @@ const AdminSignInForm = () => {
         await firebase.auth()
             .signInWithEmailAndPassword(
                 values.emailAddress, values.password
-            )
-            .then((auth) => {
+            ).then((auth) => {
                 if (auth) {
+                    setSignIn(true);
+                    notifyUser();
                     dispatch({
                         type: actionTypes.SET_USER,
                         user: auth,
                     });
                     router.replace('/');
                 }
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 switch (error.code) {
                     case "auth/invalid-email":
                         setErrorMessage("Invalid Email");
@@ -116,7 +136,7 @@ const AdminSignInForm = () => {
         <>
             <Paper classes={styles.root} component="main" className={styles.image}>
                 <Container component="main" maxWidth="xs"
-                           className="bg-white dark:bg-gray-800 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
+                           className="bg-white dark:bg-gray-300 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
                     <div className={styles.paper}>
                         <div className="mb-6 flex flex-col items-center justify-center">
                             <Avatar className={styles.avatar}/>
@@ -133,7 +153,7 @@ const AdminSignInForm = () => {
                                 value={values.emailAddress}
                                 onChange={handleInputChange}
                                 error={errors.emailAddress}
-                                inputIcon={<EmailOutlinedIcon color="secondary"/>}
+                                inputIcon={<EmailOutlinedIcon color="primary"/>}
                             />
 
                             {/* password field */}
@@ -145,7 +165,7 @@ const AdminSignInForm = () => {
                                 value={values.password}
                                 onChange={handleInputChange}
                                 error={errors.password}
-                                inputIcon={<LockOpenOutlinedIcon color="secondary"/>}
+                                inputIcon={<LockOpenOutlinedIcon color="primary"/>}
                                 endAdornment={
                                     <InputAdornment position="end">
                                         <IconButton
@@ -154,8 +174,8 @@ const AdminSignInForm = () => {
                                         >
                                             {
                                                 passwordVisible ?
-                                                    <VisibilityOutlinedIcon color="secondary"/> :
-                                                    <VisibilityOffOutlinedIcon color="secondary"/>
+                                                    <VisibilityOutlinedIcon color="primary"/> :
+                                                    <VisibilityOffOutlinedIcon color="primary"/>
                                             }
                                         </IconButton>
                                     </InputAdornment>
@@ -169,11 +189,11 @@ const AdminSignInForm = () => {
                                 onChange={handleInputChange}
                             />
 
-                            <div className="mb-4">
+                            <div className="mb-4 w-full flex justify-center items-center">
                                 <FormButton
                                     type="submit"
                                     text="Sign In"
-                                    color="secondary"
+                                    color="primary"
                                 />
                             </div>
 
@@ -204,6 +224,12 @@ const AdminSignInForm = () => {
                     </div>
                 </Container>
             </Paper>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
     );
 }

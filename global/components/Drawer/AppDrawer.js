@@ -2,10 +2,10 @@ import React from 'react';
 import {DrawerStyles} from "./DrawerStyles";
 import {useStateValue} from "../../../provider/AppState";
 import MenuItemCard from "./MenuItem/MenuItemCard";
-import PersonIcon from '@mui/icons-material/Person';
-import LockOpenIcon from '@mui/icons-material/LockOpen';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import {SwipeableDrawer, Paper, List} from "@mui/material";
+import PersonIcon from '@material-ui/icons/Person';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {SwipeableDrawer, Paper, List} from "@material-ui/core";
 
 const AppDrawer = (props) => {
     const {handleOpenDrawer} = props;

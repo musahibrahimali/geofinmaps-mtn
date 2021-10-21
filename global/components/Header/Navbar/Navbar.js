@@ -8,11 +8,11 @@ import {
     Badge,
     MenuItem,
     Menu,
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+} from "@material-ui/core";
+import MenuIcon from '@material-ui/icons/Menu';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MailIcon from '@material-ui/icons/Mail';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 import {useStateValue} from "../../../../provider/AppState";
 import {NavbarStyles} from "./NavbarStyles";
 import {useRouter} from "next/router";

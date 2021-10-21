@@ -35,7 +35,7 @@ module.exports = {
         'brand-blue': "#0052CC",
         'custom-green': "#19857b",
         'custom-green-deep': "#037c70",
-        gray: {
+        'dark-color': {
           800: "#424242",
           900: "#303030",
         }

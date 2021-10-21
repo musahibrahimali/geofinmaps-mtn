@@ -7,6 +7,7 @@ import {Header} from "../../../global/components/globalComponents";
 import { Image13 } from '../../../assets/AssetExport';
 import firebase from 'firebase';
 import 'firebase/database';
+import {Notification} from "../../../global/widgets/FormControls/controls";
 
 const initialValues = {
     id: 0,
@@ -23,6 +24,25 @@ const AddCable = () => {
 
     const [values, setValues] = useState(initialValues);
     const [errors, setErrors] = useState({});
+    const [load, setLoad] = useState(false);
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
+
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        if(load){
+            setNotify({
+                isOpen: true,
+                message: "Data Added successfully",
+                type: "success"
+            });
+        }else{
+            setNotify({
+                isOpen: true,
+                message: "There was an error saving data",
+                type: "error"
+            });
+        }
+    }
 
     const handleOnValueChange = (event) => {
         event.preventDefault();
@@ -73,7 +93,10 @@ const AddCable = () => {
                 city: values.location,
                 details: values.details,
             }
-            await addCableData(data).then(() => {});
+            setLoad(true);
+            await addCableData(data).then(() => {
+                notifyUser();
+            });
         }
     }
 
@@ -197,6 +220,13 @@ const AddCable = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+
         </>
     );
 }

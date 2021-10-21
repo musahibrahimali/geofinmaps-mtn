@@ -4,7 +4,7 @@ import {
     FormLabel,
     Radio,
     RadioGroup
-} from '@mui/material';
+} from "@material-ui/core";
 import React from 'react';
 
 function RadioControls(props) {
