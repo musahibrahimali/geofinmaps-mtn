@@ -117,7 +117,7 @@ function ReportContent(props) {
     }
 
     return (
-        <div className="pt-24">
+        <div className="pt-24 h-screen">
             <Paper elevation={0} className={styles.employeePageContent}>
                 <Toolbar>
                     <InputField
@@ -148,12 +148,14 @@ function ReportContent(props) {
                             RecordsAfterPagingAndSorting().map((item) => (
                                 <TableRow key={item.id}>
                                     <TableCell>{item.title}</TableCell>
-                                    <TableCell>{item.reportType}</TableCell>
+                                    <TableCell>{item.reportType.toUpperCase()}</TableCell>
                                     <TableCell>{item.author}</TableCell>
                                     <TableCell>{item.location}</TableCell>
                                     <TableCell>
                                         {/* edit */}
-                                        <ActionButton color="primary" onClick={() => handleOnClick(item.id)}>
+                                        <ActionButton
+                                            color="primary"
+                                            onClick={() => handleOnClick(item.id)}>
                                             <EditOutlinedIcon fontSize="small" />
                                         </ActionButton>
                                         {/* delete */}
@@ -163,7 +165,7 @@ function ReportContent(props) {
                                                 () => {onDelete(item.id)}
                                             }
                                         >
-                                            <CloseIcon fontSize="small" />
+                                            <CloseIcon color="disabled" fontSize="small" />
                                         </ActionButton>
                                     </TableCell>
                                 </TableRow>

@@ -6,15 +6,16 @@ import firebase from 'firebase';
 import {useStateValue} from "../../../../provider/AppState";
 const initialPosition = { lat: 6.673175, lng: -1.565423 };
 
-const fibreLayingCoordinates = [
-    { lat: 6.6699666789763885, lng: -1.5765456968379823 },
-    { lat: 6.672664232015921, lng: -1.5726614434823272 },
-    { lat: 6.675874150071826, lng: -1.5677302624644058 },
-    { lat: 6.674623339435071, lng: -1.5647412081243117 },
-    { lat: 6.6794833239758375, lng: -1.559168088045109 },
-];
+// const fibreLayingCoordinates = [
+//     { lat: 6.6699666789763885, lng: -1.5765456968379823 },
+//     { lat: 6.672664232015921, lng: -1.5726614434823272 },
+//     { lat: 6.675874150071826, lng: -1.5677302624644058 },
+//     { lat: 6.674623339435071, lng: -1.5647412081243117 },
+//     { lat: 6.6794833239758375, lng: -1.559168088045109 },
+// ];
 
-const Map = () => {
+const Map = (props) => {
+    const {coordinates, cableData} = props;
     const [position, setPosition] = useState(initialPosition);
     const [isLocation, setIsLocation] = useState(false);
 
@@ -34,8 +35,8 @@ const Map = () => {
                 setIsLocation(!isLocation);
             }
         }
-        getUserLocation().then(results => console.log(results) );
-    }, [isLocation, position]);
+        getUserLocation().then(() => {});
+    }, [isLocation]);
 
 
     return (
@@ -51,20 +52,22 @@ const Map = () => {
                     },
                 }}>
                 {
-                    fibreLayingCoordinates.map((item, index) => {
+                    coordinates.map((item, index) => {
                         return (
-                            <DefaultMarker key={index} item={item} />
+                            <DefaultMarker key={index} item={item} cableData={cableData[index]} />
                         );
                     })
                 }
-                <Polyline
-                    path={fibreLayingCoordinates}
-                    options={{
-                        geodesic: true,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2,
-                    }}
+                {/*<Polyline*/}
+                {/*    path={coordinates.sort((a,b) => {*/}
+                {/*        return a? a.lng < b.lng : b;*/}
+                {/*    })}*/}
+                {/*    options={{*/}
+                {/*        geodesic: true,*/}
+                {/*        strokeColor: "#FF0000",*/}
+                {/*        strokeOpacity: 1.0,*/}
+                {/*        strokeWeight: 2,*/}
+                {/*    }}*/}
                 />
             </GoogleMap>
         </>
@@ -72,7 +75,7 @@ const Map = () => {
 }
 
 const DefaultMarker = (props) => {
-    const { item } = props;
+    const { item, cableData } = props;
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
     const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title:"", subTitle:""});
     const [markerOpen, setMarkerOpen] = useState(false);
@@ -164,15 +167,12 @@ const DefaultMarker = (props) => {
                             </div>
                             <div className="flex flex-col justify-between items-center py-2">
                                 <p className="text-lg text-blue-600 font-bold">
-                                    Lorem ipsum dolor sit amet
+                                    {cableData.location}
                                 </p>
                                 <p className="text-gray-700 dark:text-gray-100">
-                                    Lorem ipsum dolor sit amet
+                                    some descriptions
                                 </p>
                                 <div className="flex flex-col mt-2">
-                                    <h1 className="text-blue-600 font-bold text-lg">
-                                        Kumasi Central
-                                    </h1>
                                     <div className="flex flex-col justify-between items-center">
                                         <p className="text-blue-600 dark:text-gray-100 font-bold">
                                             {item.lat.toString()}

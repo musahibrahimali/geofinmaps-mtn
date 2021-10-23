@@ -8,6 +8,7 @@ export {
     SideBar,
     ClientNavbar,
     ReportForm,
+    ShimmerPage,
 } from './components/globalComponents';
 export {
     // form controls

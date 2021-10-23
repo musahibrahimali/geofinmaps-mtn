@@ -2,8 +2,8 @@
         "id": 1,
         "title": "point 1",
         "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
+            "lat": "6.6699666789763885",
+            "lng": "-1.5765456968379823"
         },
         "location": "kumasi central",
         "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
@@ -12,8 +12,8 @@
         "id": 1,
         "title": "point 2",
         "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
+            "lat": "6.672664232015921",
+            "lng": "-1.5726614434823272"
         },
         "location": "kumasi central",
         "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
@@ -22,8 +22,8 @@
         "id": 1,
         "title": "point 3",
         "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
+            "lat": "6.675874150071826",
+            "lng": "-1.5677302624644058"
         },
         "location": "kumasi central",
         "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
@@ -32,8 +32,8 @@
         "id": 1,
         "title": "point 4",
         "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
+            "lat": "6.674623339435071",
+            "lng": "-1.5647412081243117"
         },
         "location": "kumasi central",
         "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
@@ -42,58 +42,8 @@
         "id": 1,
         "title": "point 5",
         "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
-        },
-        "location": "kumasi central",
-        "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
-    },
-    {
-        "id": 1,
-        "title": "point 6",
-        "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
-        },
-        "location": "kumasi central",
-        "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
-    },
-    {
-        "id": 1,
-        "title": "point 7",
-        "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
-        },
-        "location": "kumasi central",
-        "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
-    },
-    {
-        "id": 1,
-        "title": "point 8",
-        "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
-        },
-        "location": "kumasi central",
-        "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
-    },
-    {
-        "id": 1,
-        "title": "point 9",
-        "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
-        },
-        "location": "kumasi central",
-        "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"
-    },
-    {
-        "id": 1,
-        "title": "point 10",
-        "coord": {
-            "lat": "123.234",
-            "lon": "-234.567"
+            "lat": "6.6794833239758375",
+            "lng": "-1.559168088045109"
         },
         "location": "kumasi central",
         "details" : "lorem ipsum dolor st amet lorem ipsum dolor st amet"

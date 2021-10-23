@@ -17,26 +17,32 @@ function AdminHome(props) {
     let criticalReports = 0;
     let warningReports = 0;
     let normalReports = 0;
-    let usersOnline = 0;
+    let usersActive = 0;
 
     const handleCounts = () => {
         // handle users stuff
-        users.forEach((user) => {
-            if (user.isOnline) {
-                usersOnline++;
+        users.map((user) => {
+            if (user) {
+                usersActive++;
             }
         });
 
         // handle report stuff
         reports.forEach((report) => {
             if (report.reportType.toString().toLowerCase() === "danger") {
+                normalDash = true;
+                warningDash = true;
                 criticalDash = true;
                 criticalReports++;
             } else if (report.reportType.toString().toLowerCase() === "warning") {
+                normalDash = true;
                 warningDash = true;
+                criticalDash = true;
                 warningReports++;
             } else {
                 normalDash = true;
+                warningDash = true;
+                criticalDash = true;
                 normalReports++;
             }
         });
@@ -55,8 +61,8 @@ function AdminHome(props) {
                 />
                 <StatisticsCard
                     notDash={notDash}
-                    itemTitle={"Total Users Online"}
-                    itemCount={usersOnline}
+                    itemTitle={"Total Users Active"}
+                    itemCount={usersActive}
                 />
                 <StatisticsCard
                     notDash={notDash}

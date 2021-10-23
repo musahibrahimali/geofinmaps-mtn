@@ -4,10 +4,13 @@ import {ActionButtonStyles} from "./ActionButtonStyles";
 
 const ActionButton = (props) => {
     const styles = ActionButtonStyles();
-    const {color, children, onClick} = props;
+    const {color, children, onClick, disabled} = props;
 
     return (
-        <Button className={`${styles.root}  ${styles[color]}`} onClick={onClick}>
+        <Button
+            disabled={disabled || false}
+            className={`${styles.root}  ${styles[color]}`}
+            onClick={onClick}>
             {children}
         </Button>
     );

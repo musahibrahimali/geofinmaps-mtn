@@ -14,11 +14,20 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
-import {CheckBox, CopyRight, Form, FormButton, InputField, Notification, UseForm} from "../../../../global/global";
+import {
+    CheckBox,
+    CopyRight,
+    Form,
+    FormButton,
+    InputField,
+    Notification,
+    UseForm
+} from "../../../../global/global";
 import firebase from 'firebase';
 import {useStateValue} from "../../../../provider/AppState";
 import actionTypes from "../../../../Utils/Utils";
 import {SignInFormStyles} from "./SignInFormStyles";
+import {useRouter} from "next/router";
 
 const initialValues = {
     id: 0,
@@ -35,27 +44,20 @@ const AdminSignInForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [{}, dispatch] = useStateValue();
 
-    const [signIn, setSignIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
+
+    const router = useRouter();
 
     // notify user of successful log in or log out
     const notifyUser = () => {
-        if(signIn){
-            setNotify({
-                isOpen: true,
-                message: "Sign in Successful",
-                type: "success"
-            });
-        }else{
-            setNotify({
-                isOpen: true,
-                message: "Sign not Successful",
-                type: "error"
-            });
-        }
+        setNotify({
+            isOpen: true,
+            message: "Sign in Successful",
+            type: "success"
+        });
     }
 
-    /* validate form */
     const handlePasswordVisible = (event) => {
         event.preventDefault();
         setPasswordVisible(!passwordVisible);
@@ -80,20 +82,22 @@ const AdminSignInForm = () => {
         }
     }
 
-    const handleLogIn = async (event) => {
-        event.preventDefault();
+    const handleLogIn = async () => {
         await firebase.auth()
             .signInWithEmailAndPassword(
-                values.emailAddress, values.password
+                values.emailAddress.trim().toString(), values.password
             ).then((auth) => {
                 if (auth) {
-                    setSignIn(true);
+                    setLoggedIn(!loggedIn);
                     notifyUser();
+                    console.log(auth);
+                    console.log(loggedIn);
                     dispatch({
                         type: actionTypes.SET_USER,
                         user: auth,
                     });
-                    router.replace('/');
+                    handleResetForm();
+                    router.replace('/admin');
                 }
             }).catch((error) => {
                 switch (error.code) {
@@ -110,7 +114,7 @@ const AdminSignInForm = () => {
                         setErrorMessage("Invalid password");
                         break;
                     default:
-                        setErrorMessage("A network error occured");
+                        setErrorMessage("A network error occurred");
                         break;
                 }
             })
@@ -119,7 +123,6 @@ const AdminSignInForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            handleResetForm();
             handleLogIn().then(result => console.log(result));
         }
     }
@@ -134,7 +137,7 @@ const AdminSignInForm = () => {
 
     return (
         <>
-            <Paper classes={styles.root} component="main" className={styles.image}>
+            <Paper classes={{root: styles.root }} component="main" className={styles.image}>
                 <Container component="main" maxWidth="xs"
                            className="bg-white dark:bg-gray-300 shadow-md border border-gray-400 border-opacity-0 dark:border-opacity-70 p-4 flex flex-col justify-center items-center">
                     <div className={styles.paper}>

@@ -1,22 +1,57 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStateValue} from "../../provider/AppState";
 import {useRouter} from "next/router";
 import actionTypes from "../../Utils/Utils";
-import {Header} from "../../global/components/globalComponents";
+import {Header, ShimmerPage} from "../../global/global";
 import {AdminHome} from '../../admin/admin';
-import ReportData from '../../data/reportsData.json';
-import OperatorsData from '../../data/operators.json';
+import axios from "axios";
 
-const AdminIndex = (props) => {
-    const { reports, users } = props;
+const usersUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllUsers";
+const reportsUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllReports";
+
+const AdminIndex = () => {
     const [{ user, isDrawerOpen}, dispatch] = useStateValue();
     const router = useRouter();
 
+    const [allUsers, setAllUsers] = useState(null);
+    const [allReports, setAllReports] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    let usersData;
+    let reportsData;
+    let users = [];
+    let reports = [];
+
+    const getData = async () => {
+        await axios(usersUrl).then((response) => {
+            usersData = response.data.users;
+        });
+
+        await axios(reportsUrl).then((response) => {
+            reportsData = response.data.reports;
+        });
+
+        usersData.map((user) => {
+           users.push(user);
+        });
+
+        reportsData.map((report) => {
+           reports.push(report);
+        });
+
+        setAllReports(reports);
+        setAllUsers(users);
+        if(allUsers !== null && allReports !== null){
+            setLoading(false);
+        }
+    }
+
+
     useEffect(() => {
-        // if(!user){
-        //     router.replace('/admin/auth').then(result => console.log(result));
-        // }
-    },[router, user]);
+        getData().then(() => {
+            setLoading(false);
+        });
+    },[]);
 
     /* data layer */
     const handleOpenDrawer = () => {
@@ -36,24 +71,13 @@ const AdminIndex = (props) => {
     return (
         <>
             <Header handleOpenDrawer={handleOpenDrawer} />
-            <AdminHome reports={reports} users={users} />
+            {
+                loading ?
+                    <ShimmerPage /> :
+                    <AdminHome users={allUsers} reports={allReports}/>
+            }
         </>
     );
 };
-
-/* fetch data from database */
-export const getStaticProps = async () => {
-    // const response = await fetch(OperatorsData); /// pass api end point
-    // const data = await response.json();
-    const response = await ReportData;
-    const users = await OperatorsData;
-    const data = await response;
-    const userData = await users;
-
-
-    return {
-        props: { reports: data, users: userData },
-    }
-}
 
 export default AdminIndex;

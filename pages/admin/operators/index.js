@@ -1,14 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStateValue} from "../../../provider/AppState";
 import actionTypes from "../../../Utils/Utils";
-import {Header} from "../../../global/components/globalComponents";
-import OperatorsData from "../../../data/operators.json";
+import {Header, ShimmerPage} from "../../../global/global";
 import {UserContent} from "../../../admin/admin";
+import axios from "axios";
+const usersUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllUsers";
 
-const Operators = (props) => {
-    const {users} = props;
+const Operators = () => {
     /* data layer */
     const [{ isDrawerOpen}, dispatch] = useStateValue();
+
+
+    const [allUsers, setAllUsers] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    let usersData;
+    let users = [];
+
+    const getData = async () => {
+        await axios(usersUrl).then((response) => {
+            usersData = response.data.users;
+        });
+
+        usersData.map((user) => {
+            users.push(user);
+        });
+
+        setAllUsers(users);
+        if(allUsers !== null){
+            setLoading(false);
+        }
+    }
+
+
+    useEffect(() => {
+        getData().then(() => {
+            setLoading(false);
+        });
+    },[]);
+
     const handleOpenDrawer = () => {
         if(isDrawerOpen){
             dispatch({
@@ -26,22 +56,13 @@ const Operators = (props) => {
     return (
         <>
             <Header handleOpenDrawer={handleOpenDrawer} />
-            <UserContent users={users} />
+            {
+                loading?
+                    <ShimmerPage /> :
+                    <UserContent users={allUsers}/>
+            }
         </>
     );
-}
-
-/* fetch data from database */
-export const getStaticProps = async () => {
-    // const response = await fetch(OperatorsData); /// pass api end point
-    // const data = await response.json();
-    const users = await OperatorsData;
-    const userData = await users;
-
-
-    return {
-        props: { users: userData },
-    }
 }
 
 export default Operators;

@@ -1,15 +1,66 @@
 import { useRouter } from 'next/router';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { GoogleMapView } from '../client/client';
 import {useStateValue} from '../provider/AppState';
-import {ClientNavbar} from "../global/components/globalComponents";
+import {ClientNavbar, ShimmerPage} from "../global/global";
 import actionTypes from "../Utils/Utils";
+import axios from "axios";
+const cableUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllCableData";
 
 const Home = () => {
-  const router = useRouter();
-
   /* data layer */
   const [{ user, isDrawerOpen}, dispatch] = useStateValue();
+  const router = useRouter();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [coordinates, setCoordinates] = useState(null);
+
+  let cableData;
+  let cables = [];
+
+  const getData = async () => {
+    await axios(cableUrl).then((response) => {
+      cableData = response.data.cables;
+    });
+
+    cableData.map((cable) => {
+      cables.push(cable);
+    });
+
+    setData(cables);
+
+    if(cables !== null){
+      getAllCoordinates();
+      setLoading(false);
+    }
+  }
+
+  const getAllCoordinates = () => {
+    let coordinateData = [];
+    if(cables){
+      cables.map((cable) => {
+        coordinateData.push({
+          lat: parseFloat(cable.coord.lat),
+          lng: parseFloat(cable.coord.lng),
+        });
+      });
+      setCoordinates(coordinateData);
+      console.log("coordinates in state (sorted) >>> ", coordinates.sort((a, b) => {
+        return a ? a.lng > b.lng : b;
+      }));
+    }else{
+      console.log("data not in yet")
+    }
+  }
+
+  useEffect(() => {
+
+    getData().then(() => {
+      setLoading(false);
+    });
+
+  },[user, loading]);
+
   const handleOpenDrawer = () => {
     if(isDrawerOpen){
       dispatch({
@@ -24,18 +75,15 @@ const Home = () => {
     }
   }
 
-  useEffect(() => {
-    if(!user){
-      // router.replace('/auth').then(result => console.log(result));
-    }else if(user.isAdmin){
-      router.replace('/admin').then(result => console.log(result));
-    }
-  },[router, user]);
 
   return (
     <>
         <ClientNavbar handleOpenDrawer={handleOpenDrawer}/>
-        <GoogleMapView />
+      {
+        loading ?
+            <ShimmerPage /> :
+            <GoogleMapView cableData={data} coordinates={coordinates}/>
+      }
     </>
   )
 }

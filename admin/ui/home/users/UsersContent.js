@@ -20,6 +20,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AddIcon from "@material-ui/icons/Add";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import CloseIcon from "@material-ui/icons/Close";
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import {useRouter} from "next/router";
 
 function UsersContent(props) {
@@ -83,10 +84,8 @@ function UsersContent(props) {
         })
     }
 
-    // open in popup
-    const openInPopUp = (item) => {
-        setRecordsForEdit(item);
-        setOpenPopUp(true);
+    const handleUserClick = (userName) => {
+        router.push(`/admin/operators/${userName}`).then(() => {});
     }
 
     const onDelete = (id) => {
@@ -112,12 +111,8 @@ function UsersContent(props) {
         })
     }
 
-    const handleOnClick = (itemId) => {
-        router.push(`/admin/operators/${itemId}`).then(results => console.log(results));
-    }
-
     return (
-        <div className="pt-24">
+        <div className="pt-24 h-screen">
             <Paper elevation={0} className={styles.employeePageContent}>
                 <Toolbar>
                     <InputField
@@ -146,24 +141,28 @@ function UsersContent(props) {
                     <TableBody>
                         {
                             RecordsAfterPagingAndSorting().map((item) => (
-                                <TableRow key={item.id}>
-                                    <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.email}</TableCell>
-                                    <TableCell>{item.role}</TableCell>
-                                    <TableCell>{item.department}</TableCell>
+                                <TableRow key={item.emailAddress}>
+                                    <TableCell>{item.fullName}</TableCell>
+                                    <TableCell>{item.emailAddress}</TableCell>
+                                    <TableCell>{item.phoneNumber}</TableCell>
+                                    <TableCell>{item.departmentId}</TableCell>
                                     <TableCell>
                                         {/* edit */}
-                                        <ActionButton color="primary" onClick={() => {openInPopUp(item)}}>
-                                            <EditOutlinedIcon fontSize="small" />
+                                        <ActionButton
+                                            color="primary"
+                                            onClick={() => {
+                                                handleUserClick(item.fullName);
+                                            }}>
+                                            <RecentActorsIcon color="action" fontSize="small" />
                                         </ActionButton>
                                         {/* delete */}
                                         <ActionButton
                                             color="secondary"
                                             onClick={
-                                                () => {onDelete(item.id)}
+                                                () => {onDelete(item)}
                                             }
                                         >
-                                            <CloseIcon fontSize="small" />
+                                            <CloseIcon color="disabled" fontSize="small" />
                                         </ActionButton>
                                     </TableCell>
                                 </TableRow>

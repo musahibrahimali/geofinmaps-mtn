@@ -70,7 +70,6 @@ const LoadFile = () => {
                     },
                     location: item.location,
                 };
-                console.log(data);
                 addCableData(data).then(() => {
                     notifyUser();
                 });

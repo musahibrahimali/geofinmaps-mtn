@@ -68,19 +68,11 @@ const AdminSignUpForm = () => {
 
     // notify user of successful log in or log out
     const notifyUser = () => {
-        if(signIn){
-            setNotify({
-                isOpen: true,
-                message: "Sign up Successful",
-                type: "success"
-            });
-        }else{
-            setNotify({
-                isOpen: true,
-                message: "Sign not Successful",
-                type: "error"
-            });
-        }
+        setNotify({
+            isOpen: true,
+            message: "Sign up Successful",
+            type: "success"
+        });
     }
 
     const handlePasswordVisible = (event) => {
@@ -150,7 +142,8 @@ const AdminSignUpForm = () => {
                         type: actionTypes.SET_USER,
                         user: auth,
                     });
-                    router.replace('/');
+                    handleResetForm();
+                    router.replace('/admin');
                 }
             })
     }

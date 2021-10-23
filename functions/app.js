@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const cors = require("cors")({origin: true});
 admin.initializeApp();
 
 // Create and Deploy Your First Cloud Functions
@@ -82,8 +83,8 @@ exports.addCableData = functions.https.onCall((data, context) => {
     city: data.city,
     details: data.details,
     coord: {
-      lat: data.lat,
-      lng: data.lng,
+      lat: data.coord.lat,
+      lng: data.coord.lng,
     },
     location: data.location,
   });
@@ -127,4 +128,55 @@ exports.addReport = functions.https.onCall((data, context) => {
 exports.deleteReport = functions.https.onCall((data, context) => {
   const doc = admin.firestore().collection("reports").doc(data.uid);
   return doc.delete();
+});
+
+/* get cable data */
+exports.getAllCableData = functions.https.onRequest((request, response) => {
+  return cors(request, response, () => {
+    const timeStamp = admin.firestore.FieldValue.serverTimestamp();
+    const data = admin.firestore()
+        .collection("cable_data")
+        .orderBy(timeStamp, "asc");
+    const cables = [];
+    data.get().then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        cables.push(doc.data());
+      });
+      return response.status(200).send({cables: cables});
+    });
+  });
+});
+
+/* get all users */
+exports.getAllReports = functions.https.onRequest((request, response) => {
+  return cors(request, response, () => {
+    const timeStamp = admin.firestore.FieldValue.serverTimestamp();
+    const data = admin.firestore()
+        .collection("reports")
+        .orderBy(timeStamp, "asc");
+    const reports = [];
+    data.get().then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        reports.push(doc.data());
+      });
+      return response.status(200).send({reports: reports});
+    });
+  });
+});
+
+/* get users */
+exports.getAllUsers = functions.https.onRequest((request, response) => {
+  return cors(request, response, () => {
+    const timeStamp = admin.firestore.FieldValue.serverTimestamp();
+    const data = admin.firestore()
+        .collection("users")
+        .orderBy(timeStamp, "asc");
+    const users = [];
+    data.get().then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        users.push(doc.data());
+      });
+      return response.status(200).send({users: users});
+    });
+  });
 });
