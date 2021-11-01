@@ -45,21 +45,21 @@ const Home = () => {
         });
       });
       setCoordinates(coordinateData);
-      console.log("coordinates in state (sorted) >>> ", coordinates.sort((a, b) => {
-        return a ? a.lng > b.lng : b;
-      }));
     }else{
       console.log("data not in yet")
     }
   }
 
   useEffect(() => {
+    if(!user){
+      router.replace('/auth').then(() => {});
+    }
 
     getData().then(() => {
       setLoading(false);
     });
 
-  },[user, loading]);
+  },[user, router]);
 
   const handleOpenDrawer = () => {
     if(isDrawerOpen){

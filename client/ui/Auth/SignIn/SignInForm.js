@@ -14,9 +14,7 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
-import {CheckBox, CopyRight, Form, FormButton, InputField, UseForm} from "../../../../global/global";
-import actionTypes from '../../../../Utils/Utils';
-import {useStateValue} from "../../../../provider/AppState";
+import {CheckBox, CopyRight, Form, FormButton, InputField, Notification, UseForm} from "../../../../global/global";
 import firebase from 'firebase';
 import {SignInFormStyles} from "./SignInFormStyles";
 import {useRouter} from "next/router";
@@ -31,29 +29,19 @@ const initialValues = {
 const SignInForm = () => {
 
     const styles = SignInFormStyles();
-    const [dispatch] = useStateValue();
     const router = useRouter();
 
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [signIn, setSignIn] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
     // notify user of successful log in or log out
     const notifyUser = () => {
-        if(signIn){
-            setNotify({
-                isOpen: true,
-                message: "Sign in Successful",
-                type: "success"
-            });
-        }else{
-            setNotify({
-                isOpen: true,
-                message: "Sign not Successful",
-                type: "error"
-            });
-        }
+        setNotify({
+            isOpen: true,
+            message: "Sign in Successful",
+            type: "success"
+        });
     }
 
     /* validate form */
@@ -81,24 +69,14 @@ const SignInForm = () => {
         }
     }
 
-    const handleLogIn = async (event) => {
-        event.preventDefault();
-        await firebase.auth()
-            .signInWithEmailAndPassword(
-                values.emailAddress, values.password
-            )
-            .then((auth) => {
-                if (auth) {
-                    setSignIn(true);
-                    notifyUser();
-                    dispatch({
-                        type: actionTypes.SET_USER,
-                        user: auth,
-                    });
-                    router.replace('/');
-                }
-            })
-            .catch((error) => {
+    const handleLogIn = () => {
+        firebase.auth().signInWithEmailAndPassword(
+            values.emailAddress, values.password
+        ).then(() => {
+                notifyUser();
+                handleResetForm();
+                router.replace('/').then(() => {});
+        }).catch((error) => {
                 switch (error.code) {
                     case "auth/invalid-email":
                         setErrorMessage("Invalid Email");
@@ -122,8 +100,7 @@ const SignInForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            handleResetForm();
-            handleLogIn().then(() => {});
+            handleLogIn();
         }
     }
 
@@ -232,6 +209,12 @@ const SignInForm = () => {
                     </div>
                 </Container>
             </Paper>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
     );
 }

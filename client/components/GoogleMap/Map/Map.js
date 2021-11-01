@@ -68,7 +68,7 @@ const Map = (props) => {
                 {/*        strokeOpacity: 1.0,*/}
                 {/*        strokeWeight: 2,*/}
                 {/*    }}*/}
-                />
+                {/*/>*/}
             </GoogleMap>
         </>
     );
@@ -80,25 +80,6 @@ const DefaultMarker = (props) => {
     const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title:"", subTitle:""});
     const [markerOpen, setMarkerOpen] = useState(false);
     const [openPopUp, setOpenPopUp] = useState(false);
-    const [add, setAdd] = useState(false);
-    const [{user}] = useStateValue();
-
-    // notify user of successful log in or log out
-    const notifyUser = () => {
-        if(add){
-            setNotify({
-                isOpen: true,
-                message: "report submitted Successfully",
-                type: "success"
-            });
-        }else{
-            setNotify({
-                isOpen: true,
-                message: "Report could not be submitted",
-                type: "error"
-            });
-        }
-    }
 
     const onToggleOpen = () => {
         setMarkerOpen(!markerOpen);
@@ -107,37 +88,6 @@ const DefaultMarker = (props) => {
     // close pop up
     const handleOpenPopUP = () => {
         setOpenPopUp(!openPopUp);
-    }
-
-    const AddReport = ({report}) => {
-            const data = {
-                userUID: user.uid,
-                fullName: report.fullName,
-                emailAddress: report.emailAddress,
-                location: report.location,
-                description: report.description,
-                level: report.level,
-                title : report.title,
-                reportDate: report.reportDate,
-                coord: {
-                    lat: item.lat,
-                    lng: item.lng,
-                }
-            }
-        const addReport = firebase.functions.httpsCallable('addReport');
-        addReport(data).then(() => {
-            setAdd(true);
-        }).catch(() => {
-
-        })
-    }
-
-    // add or edit entry
-    const addOrEdit = (report, item, handleResetForm) => {
-        handleResetForm();
-        AddReport(report);
-        setOpenPopUp(false);
-        notifyUser();
     }
 
     return(
@@ -195,7 +145,9 @@ const DefaultMarker = (props) => {
                 color="secondary"
                 iconColor="primary">
                 <ReportForm
-                    addOrEdit={addOrEdit}
+                    lat={item.lat}
+                    lng={item.lng}
+                    handleOpenPopUp={handleOpenPopUP}
                     recordForEdit={null}
                 />
             </PopUp>

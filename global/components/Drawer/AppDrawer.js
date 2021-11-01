@@ -6,16 +6,20 @@ import PersonIcon from '@material-ui/icons/Person';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {SwipeableDrawer, Paper, List} from "@material-ui/core";
+import firebase from "firebase";
+import {useRouter} from "next/router";
+
 
 const AppDrawer = (props) => {
     const {handleOpenDrawer} = props;
     const [{ isDrawerOpen }] = useStateValue();
     const styles = DrawerStyles();
+    const router = useRouter();
 
     return (
         <Paper classes={{root: styles.root}}>
             <SwipeableDrawer
-                anchor={"right"}
+                anchor={"left"}
                 open={isDrawerOpen}
                 onClose={handleOpenDrawer}
                 onOpen={handleOpenDrawer}>
@@ -57,6 +61,11 @@ const AppDrawer = (props) => {
                             icon={<LockOpenIcon color="primary" />}
                         />
                         <MenuItemCard
+                            onClick={() => {
+                                firebase.auth().signOut().then(() => {
+                                    router.replace('/admin/auth').then(() => {});
+                                });
+                            }}
                             text="Sign Out"
                             url={"/admin"}
                             icon={<ExitToAppIcon color="primary" />}

@@ -29,12 +29,12 @@ function AdminHome(props) {
 
         // handle report stuff
         reports.forEach((report) => {
-            if (report.reportType.toString().toLowerCase() === "danger") {
+            if (report.level.toString().toLowerCase() === "danger") {
                 normalDash = true;
                 warningDash = true;
                 criticalDash = true;
                 criticalReports++;
-            } else if (report.reportType.toString().toLowerCase() === "warning") {
+            } else if (report.level.toString().toLowerCase() === "warning") {
                 normalDash = true;
                 warningDash = true;
                 criticalDash = true;

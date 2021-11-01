@@ -79,6 +79,7 @@ const Navbar = (props) => {
             setSignIn(false);
             notifyUser();
         });
+        router.replace('/admin/auth').then(() => {});
         handleMenuClose();
     };
 

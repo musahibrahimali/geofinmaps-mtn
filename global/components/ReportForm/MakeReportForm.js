@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Grid,
     Box
@@ -7,7 +7,7 @@ import {
     DatePicker,
     Form,
     FormButton,
-    InputField,
+    InputField, Notification,
     RadioControls, UseForm
 } from "../../widgets/FormControls/controls";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -16,27 +16,42 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import LocationCityOutlinedIcon from '@material-ui/icons/LocationCityOutlined';
 import {MakeReportFormStyles} from './MakeReportFormStyles';
 import {CopyRight} from "../../widgets/globalWidgets";
+import {useStateValue} from "../../../provider/AppState";
+import firebase from 'firebase';
 
 const initialValues = {
-    id: 0,
-    fullName: '',
-    emailAddress: '',
-    location: '',
-    description: '',
-    level: 'danger',
-    title : '',
-    reportDate: new Date(),
-};
+        id: 0,
+        fullName: '',
+        emailAddress: '',
+        location: '',
+        description: '',
+        level: 'danger',
+        title : '',
+        reportDate: new Date(),
+    };
 
 function MakeReportForm(props) {
-    const {addOrEdit} = props;
-    const styles = MakeReportFormStyles();
 
     const threatLevels = [
         { id: "danger", title: "Danger" },
         { id: "warning", title: "Warning" },
         { id: "normal", title: "Normal" },
     ];
+    
+    const { lat, lng, handleOpenPopUp } = props;
+    const styles = MakeReportFormStyles();
+
+    const [{user}] = useStateValue();
+    const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
+    // notify user of successful log in or log out
+    const notifyUser = () => {
+        setNotify({
+            isOpen: true,
+            message: "report submitted Successfully",
+            type: "success"
+        });
+    }
+
 
     const validateForm = (fieldValues = values) => {
         let temp = { ...errors };
@@ -67,10 +82,34 @@ function MakeReportForm(props) {
         }
     }
 
+    const AddReport = (values) => {
+        const data = {
+            userUID: user.uid,
+            fullName: values.fullName,
+            emailAddress: values.emailAddress,
+            location: values.location,
+            description: values.description,
+            level: values.level,
+            title : values.title,
+            reportDate: values.reportDate,
+            coord: {
+                lat: lat,
+                lng: lng,
+            }
+        }
+        const addReport = firebase.functions().httpsCallable('addReport');
+        addReport(data).then(() => {
+            notifyUser();
+        });
+
+        handleOpenPopUp();
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            addOrEdit(values, handleResetForm);
+            AddReport(values);
+            // handleResetForm();
         }
     }
 
@@ -83,6 +122,14 @@ function MakeReportForm(props) {
         // eslint-disable-next-line no-unused-vars
         setValues,
     } = UseForm(initialValues, true, validateForm);
+
+    useEffect(() => {
+        firebase.firestore().collection("users").doc(user.uid).get().then((response) => {
+            values.fullName = response.data().fullName;
+        });
+        values.emailAddress = user.email;
+        setValues(values);
+    },[user.email, user.uid, values]);
 
     return (
         <>
@@ -192,6 +239,12 @@ function MakeReportForm(props) {
                     <CopyRight/>
                 </Box>
             </Form>
+
+            {/* Action Notification */}
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
         </>
     );
 }

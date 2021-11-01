@@ -63,27 +63,17 @@ const SignUpForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-    const [signIn, setSignIn] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
-    const [{}, dispatch] = useStateValue();
     const router = useRouter();
 
     // notify user of successful log in or log out
     const notifyUser = () => {
-        if(signIn){
-            setNotify({
-                isOpen: true,
-                message: "Sign up Successful",
-                type: "success"
-            });
-        }else{
-            setNotify({
-                isOpen: true,
-                message: "Sign up not successful",
-                type: "error"
-            });
-        }
+        setNotify({
+            isOpen: true,
+            message: "Sign up Successful",
+            type: "success"
+        });
     }
 
     const handlePasswordVisible = (event) => {
@@ -126,46 +116,52 @@ const SignUpForm = () => {
         }
     }
 
-    const handleSignUP = async (event) => {
-        await firebase.auth()
+    const handleSignUP = () => {
+        firebase.auth()
             .createUserWithEmailAndPassword(
                 values.emailAddress, values.password
             )
             .then((auth) => {
-                if (auth) {
-                    const data = {
-                        userUID: auth.user.uid,
-                        fullName: values.fullName,
-                        emailAddress: values.emailAddress,
-                        phoneNumber: values.phoneNumber,
-                        gender: values.gender,
-                        city: values.city,
-                        isPermanent: values.isPermanent,
-                        department: values.departmentId,
-                        hireDate: values.hireDate,
-                        isAdmin: false,
-                    };
-                    const storeClientData = firebase.functions().httpsCallable('storeClientData');
-                    storeClientData(data).then(() => {
-                        setSignIn(true);
-                    }).catch(error => {
-                        console.log(error);
-                    });
-                    dispatch({
-                        type: actionTypes.SET_USER,
-                        user: auth,
-                    });
-                    router.replace('/');
+                const data = {
+                    userUID: auth.user.uid,
+                    fullName: values.fullName,
+                    emailAddress: values.emailAddress,
+                    phoneNumber: values.phoneNumber,
+                    gender: values.gender,
+                    city: values.city,
+                    isPermanent: values.isPermanent,
+                    department: values.departmentId,
+                    hireDate: values.hireDate,
+                    isAdmin: false,
+                };
+                const storeClientData = firebase.functions().httpsCallable('storeClientData');
+                storeClientData(data).then(() => {}).catch(error => {
+                    console.log("there was an error", error.message);
+                });
+                notifyUser();
+                router.replace('/').then(() =>{});
+            }).catch((error) => {
+                switch (error.code) {
+                    case "auth/invalid-email":
+                        setErrorMessage("Invalid Email");
+                        break;
+                    case "auth/email-already-in-use":
+                        setErrorMessage("Email in use by another account");
+                        break;
+                    case "auth/weak-password":
+                        setErrorMessage("Password must be at least 8 characters");
+                        break;
+                    default:
+                        setErrorMessage("A network error occurred");
+                        break;
                 }
             });
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            await handleSignUP().then(() => {
-                notifyUser();
-            });
+            handleSignUP();
         }
     }
 

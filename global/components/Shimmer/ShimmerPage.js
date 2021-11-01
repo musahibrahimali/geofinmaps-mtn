@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ShimmerPage(props) {
+function ShimmerPage() {
     return (
-        <div className="h-screen w-screen bg-gray-100 px-4 py-8 mt-12">
-            <div className="border border-gray-100 shadow  my-2 p-4 w-full mx-auto">
+        <div className="h-screen w-screen bg-white dark:bg-gray-900 px-4 py-8 mt-12">
+            <div className="border border-gray-100 dark:border-gray-600 shadow  my-2 p-4 w-full mx-auto">
                 <div className="animate-pulse flex space-x-4">
                     <div className="bg-gray-400 h-16 w-16"> </div>
                     <div className="flex-1 space-y-4 py-1">
@@ -16,7 +16,7 @@ function ShimmerPage(props) {
                 </div>
             </div>
 
-            <div className="border border-gray-100 shadow  my-2 p-4 w-full mx-auto">
+            <div className="border border-gray-100 dark:border-gray-600 shadow  my-2 p-4 w-full mx-auto">
                 <div className="animate-pulse flex space-x-4">
                     <div className="bg-gray-400 h-16 w-16"> </div>
                     <div className="flex-1 space-y-4 py-1">
@@ -29,7 +29,7 @@ function ShimmerPage(props) {
                 </div>
             </div>
 
-            <div className="border border-gray-100 shadow  my-2 p-4 w-full mx-auto">
+            <div className="border border-gray-100 dark:border-gray-600 shadow  my-2 p-4 w-full mx-auto">
                 <div className="animate-pulse flex space-x-4">
                     <div className="bg-gray-400 h-16 w-16"> </div>
                     <div className="flex-1 space-y-4 py-1">
@@ -42,7 +42,7 @@ function ShimmerPage(props) {
                 </div>
             </div>
 
-            <div className="border border-gray-100 shadow  my-2 p-4 w-full mx-auto">
+            <div className="border border-gray-100 dark:border-gray-600 shadow  my-2 p-4 w-full mx-auto">
                 <div className="animate-pulse flex space-x-4">
                     <div className="bg-gray-400 h-16 w-16"> </div>
                     <div className="flex-1 space-y-4 py-1">
@@ -55,7 +55,7 @@ function ShimmerPage(props) {
                 </div>
             </div>
 
-            <div className="border border-gray-100 shadow  my-2 p-4 w-full mx-auto">
+            <div className="border border-gray-100 dark:border-gray-600 shadow  my-2 p-4 w-full mx-auto">
                 <div className="animate-pulse flex space-x-4">
                     <div className="bg-gray-400 h-16 w-16"> </div>
                     <div className="flex-1 space-y-4 py-1">

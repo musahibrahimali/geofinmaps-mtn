@@ -29,9 +29,7 @@ import {
     RadioControls,
     UseForm
 } from "../../../../global/global";
-import {useStateValue} from "../../../../provider/AppState";
 import {useRouter} from "next/router";
-import actionTypes from "../../../../Utils/Utils";
 import {SignUpFormStyles} from "./SignUpFormStyles";
 
 const genderItems = [
@@ -60,10 +58,8 @@ const AdminSignUpForm = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-    const [signIn, setSignIn] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
-    const [dispatch] = useStateValue();
     const router = useRouter();
 
     // notify user of successful log in or log out
@@ -115,45 +111,50 @@ const AdminSignUpForm = () => {
         }
     }
 
-    const handleSignUP = async (event) => {
-        await firebase.auth()
+    const handleSignUP = () => {
+        firebase.auth()
             .createUserWithEmailAndPassword(
                 values.emailAddress, values.password
-            )
-            .then((auth) => {
-                if (auth) {
-                    const data = {
-                        userUID: auth.user.uid,
-                        fullName: values.fullName,
-                        emailAddress: values.emailAddress,
-                        phoneNumber: values.phoneNumber,
-                        gender: values.gender,
-                        city: values.city,
-                        isPermanent: values.isPermanent,
-                        department: values.departmentId,
-                        hireDate: values.hireDate,
-                        isAdmin: true,
-                    };
-                    const storeAdminData = firebase.functions().httpsCallable('storeAdminData');
-                    storeAdminData(data).then(() => {
-                        setSignIn(false)
-                    });
-                    dispatch({
-                        type: actionTypes.SET_USER,
-                        user: auth,
-                    });
-                    handleResetForm();
-                    router.replace('/admin');
+            ).then((auth) => {
+                const data = {
+                    userUID: auth.user.uid,
+                    fullName: values.fullName,
+                    emailAddress: values.emailAddress,
+                    phoneNumber: values.phoneNumber,
+                    gender: values.gender,
+                    city: values.city,
+                    isPermanent: values.isPermanent,
+                    department: values.departmentId,
+                    hireDate: values.hireDate,
+                    isAdmin: true,
+                };
+                const storeAdminData = firebase.functions().httpsCallable('storeAdminData');
+                storeAdminData(data).then(() => {});
+                notifyUser();
+                handleResetForm();
+                router.replace('/admin').then(() => {});
+            }).catch((error) => {
+                switch (error.code) {
+                    case "auth/invalid-email":
+                        setErrorMessage("Invalid Email");
+                        break;
+                    case "auth/email-already-in-use":
+                        setErrorMessage("Email in use by another account");
+                        break;
+                    case "auth/weak-password":
+                        setErrorMessage("Password must be at least 8 characters");
+                        break;
+                    default:
+                        setErrorMessage("A network error occurred");
+                        break;
                 }
-            })
+            });
     }
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            await handleSignUP().then(() => {
-                notifyUser();
-            });
+            handleSignUP();
         }
     }
 

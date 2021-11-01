@@ -45,6 +45,12 @@ const AuthLanding = () => {
                             />
                         </div>
 
+                        <div className="flex justify-center items-center">
+                            <Link href="/admin">
+                                <a className="mt-4 text-blue-300 hover:text-blue-500">admin</a>
+                            </Link>
+                        </div>
+
                         {/* create account */}
                         <div className="flex flex-col justify-center items-center mt-4 mb-5">
                             <Link href="/auth/signup">

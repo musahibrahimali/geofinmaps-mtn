@@ -110,7 +110,7 @@ const Footer = () => {
                                 </div>
 
                                 <div className="flex mb-4 md:mb-0">
-                                    <Link href="/">
+                                    <Link href={isAdmin ? "/admin" : "/"}>
                                         <a className="text-gray-500 cursor-pointer">
                                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round"
                                                  strokeWidth="2" className="w-5 h-5 hover:text-blue-700"

@@ -75,8 +75,10 @@ const AddCable = () => {
         setLoad(true);
         await addCableData(data).then(() => {
             notifyUser();
-            handleResetForm();
+        }).catch(error => {
+            console.log(error.message);
         });
+        handleResetForm();
     }
 
     const handleSubmit = async (event) => {

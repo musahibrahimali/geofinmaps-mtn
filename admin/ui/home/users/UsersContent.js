@@ -112,7 +112,7 @@ function UsersContent(props) {
     }
 
     return (
-        <div className="pt-24 h-screen">
+        <div className="pt-24">
             <Paper elevation={0} className={styles.employeePageContent}>
                 <Toolbar>
                     <InputField
@@ -127,13 +127,13 @@ function UsersContent(props) {
                         }}
                         onChange={handleSearch}
                     />
-                    <FormButton
-                        text="Add New"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={styles.newButton}
-                        onClick={handleOpenPopUP}
-                    />
+                    {/*<FormButton*/}
+                    {/*    text="Add New"*/}
+                    {/*    variant="outlined"*/}
+                    {/*    startIcon={<AddIcon />}*/}
+                    {/*    className={styles.newButton}*/}
+                    {/*    onClick={handleOpenPopUP}*/}
+                    {/*/>*/}
                 </Toolbar>
 
                 <TableContainer>

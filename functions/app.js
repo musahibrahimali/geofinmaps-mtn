@@ -8,18 +8,17 @@ admin.initializeApp();
 
 // auth trigger (new user signup)
 exports.newUserSignUp = functions.auth.user().onCreate((user) => {
-  // for background triggers you must return a value/promise
   console.log("a new user created");
   return `user created successfully ${user.email}`;
 });
 
-exports.onUserLogIn = functions.https.onCall((data, context) => {
+exports.onUserLogIn = functions.https.onCall((data) => {
   return {
     user: data.user,
   };
 });
 
-exports.storeClientData = functions.https.onCall((data, context) => {
+exports.storeClientData = functions.https.onCall((data) => {
   return admin.firestore().collection("users").doc(data.userUID).set({
     emailAddress: data.emailAddress,
     fullName: data.fullName,
@@ -33,7 +32,7 @@ exports.storeClientData = functions.https.onCall((data, context) => {
   });
 });
 
-exports.storeAdminData = functions.https.onCall((data, context) => {
+exports.storeAdminData = functions.https.onCall((data) => {
   return admin.firestore().collection("admins").doc(data.userUID).set({
     emailAddress: data.emailAddress,
     fullName: data.fullName,
@@ -48,11 +47,11 @@ exports.storeAdminData = functions.https.onCall((data, context) => {
 });
 
 // auth trigger (user deleted)
-exports.userDeleted = functions.auth.user().onDelete((user) => {
+exports.userDeleted = functions.auth.user().onDelete(() => {
   console.log("user deleted");
 });
 
-exports.deleteAdmin = functions.https.onCall((data, context) => {
+exports.deleteAdmin = functions.https.onCall((data) => {
   const doc = admin.firestore().collection("admins").doc(data.uid);
   admin.auth().deleteUser(data.uid).then(() => {
     return doc.delete();
@@ -61,7 +60,7 @@ exports.deleteAdmin = functions.https.onCall((data, context) => {
   });
 });
 
-exports.deleteClient = functions.https.onCall((data, context) => {
+exports.deleteClient = functions.https.onCall((data) => {
   const doc = admin.firestore().collection("users").doc(data.uid);
   admin.auth().deleteUser(data.uid).then(() => {
     return doc.delete();
@@ -90,11 +89,11 @@ exports.addCableData = functions.https.onCall((data, context) => {
   });
 });
 
-exports.updateCableData = functions.https.onCall((data, context) => {
+exports.updateCableData = functions.https.onCall(() => {
   return "Null";
 });
 
-exports.deleteCableData = functions.https.onCall((data, context) => {
+exports.deleteCableData = functions.https.onCall((data) => {
   const doc = admin.firestore().collection("cable_data").doc(data.uid);
   return doc.delete();
 });
@@ -108,7 +107,9 @@ exports.addReport = functions.https.onCall((data, context) => {
         "only authenticated users can add data"
     );
   }
+  const createdAt = new Date();
   return admin.firestore().collection("reports").add({
+    createdAt: createdAt,
     fullName: data.fullName,
     emailAddress: data.emailAddress,
     location: data.location,
@@ -118,14 +119,14 @@ exports.addReport = functions.https.onCall((data, context) => {
     reportDate: data.reportDate,
     userUID: data.userUID,
     coord: {
-      lat: data.lat,
-      lng: data.lng,
+      lat: data.coord.lat,
+      lng: data.coord.lng,
     },
   });
 });
 
 /* delete report */
-exports.deleteReport = functions.https.onCall((data, context) => {
+exports.deleteReport = functions.https.onCall((data) => {
   const doc = admin.firestore().collection("reports").doc(data.uid);
   return doc.delete();
 });
@@ -133,10 +134,9 @@ exports.deleteReport = functions.https.onCall((data, context) => {
 /* get cable data */
 exports.getAllCableData = functions.https.onRequest((request, response) => {
   return cors(request, response, () => {
-    const timeStamp = admin.firestore.FieldValue.serverTimestamp();
     const data = admin.firestore()
         .collection("cable_data")
-        .orderBy(timeStamp, "asc");
+        .orderBy("city", "asc");
     const cables = [];
     data.get().then((snapshot) => {
       snapshot.docs.forEach((doc) => {
@@ -150,10 +150,9 @@ exports.getAllCableData = functions.https.onRequest((request, response) => {
 /* get all users */
 exports.getAllReports = functions.https.onRequest((request, response) => {
   return cors(request, response, () => {
-    const timeStamp = admin.firestore.FieldValue.serverTimestamp();
     const data = admin.firestore()
         .collection("reports")
-        .orderBy(timeStamp, "asc");
+        .orderBy("createdAt", "asc");
     const reports = [];
     data.get().then((snapshot) => {
       snapshot.docs.forEach((doc) => {
@@ -167,10 +166,9 @@ exports.getAllReports = functions.https.onRequest((request, response) => {
 /* get users */
 exports.getAllUsers = functions.https.onRequest((request, response) => {
   return cors(request, response, () => {
-    const timeStamp = admin.firestore.FieldValue.serverTimestamp();
     const data = admin.firestore()
         .collection("users")
-        .orderBy(timeStamp, "asc");
+        .orderBy("fullName", "asc");
     const users = [];
     data.get().then((snapshot) => {
       snapshot.docs.forEach((doc) => {

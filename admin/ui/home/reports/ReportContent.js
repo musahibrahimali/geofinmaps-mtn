@@ -117,7 +117,7 @@ function ReportContent(props) {
     }
 
     return (
-        <div className="pt-24 h-screen">
+        <div className="pt-24">
             <Paper elevation={0} className={styles.employeePageContent}>
                 <Toolbar>
                     <InputField
@@ -132,13 +132,13 @@ function ReportContent(props) {
                         }}
                         onChange={handleSearch}
                     />
-                    <FormButton
-                        text="Add New"
-                        variant="outlined"
-                        startIcon={<AddIcon />}
-                        className={styles.newButton}
-                        onClick={handleOpenPopUP}
-                    />
+                    {/*<FormButton*/}
+                    {/*    text="Add New"*/}
+                    {/*    variant="outlined"*/}
+                    {/*    startIcon={<AddIcon />}*/}
+                    {/*    className={styles.newButton}*/}
+                    {/*    onClick={handleOpenPopUP}*/}
+                    {/*/>*/}
                 </Toolbar>
 
                 <TableContainer>
@@ -148,8 +148,8 @@ function ReportContent(props) {
                             RecordsAfterPagingAndSorting().map((item) => (
                                 <TableRow key={item.id}>
                                     <TableCell>{item.title}</TableCell>
-                                    <TableCell>{item.reportType.toUpperCase()}</TableCell>
-                                    <TableCell>{item.author}</TableCell>
+                                    <TableCell>{item.level.toUpperCase()}</TableCell>
+                                    <TableCell>{item.fullName}</TableCell>
                                     <TableCell>{item.location}</TableCell>
                                     <TableCell>
                                         {/* edit */}

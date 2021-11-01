@@ -24,8 +24,6 @@ import {
     UseForm
 } from "../../../../global/global";
 import firebase from 'firebase';
-import {useStateValue} from "../../../../provider/AppState";
-import actionTypes from "../../../../Utils/Utils";
 import {SignInFormStyles} from "./SignInFormStyles";
 import {useRouter} from "next/router";
 
@@ -42,9 +40,6 @@ const AdminSignInForm = () => {
 
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-    const [{}, dispatch] = useStateValue();
-
-    const [loggedIn, setLoggedIn] = useState(false);
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
 
     const router = useRouter();
@@ -82,23 +77,14 @@ const AdminSignInForm = () => {
         }
     }
 
-    const handleLogIn = async () => {
-        await firebase.auth()
+    const handleLogIn = () => {
+        firebase.auth()
             .signInWithEmailAndPassword(
                 values.emailAddress.trim().toString(), values.password
-            ).then((auth) => {
-                if (auth) {
-                    setLoggedIn(!loggedIn);
-                    notifyUser();
-                    console.log(auth);
-                    console.log(loggedIn);
-                    dispatch({
-                        type: actionTypes.SET_USER,
-                        user: auth,
-                    });
-                    handleResetForm();
-                    router.replace('/admin');
-                }
+            ).then(() => {
+                notifyUser();
+                handleResetForm();
+                router.replace('/admin').then(() =>{});
             }).catch((error) => {
                 switch (error.code) {
                     case "auth/invalid-email":
@@ -117,13 +103,13 @@ const AdminSignInForm = () => {
                         setErrorMessage("A network error occurred");
                         break;
                 }
-            })
+            });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm()) {
-            handleLogIn().then(result => console.log(result));
+            handleLogIn();
         }
     }
 

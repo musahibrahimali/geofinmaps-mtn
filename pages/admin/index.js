@@ -48,6 +48,9 @@ const AdminIndex = () => {
 
 
     useEffect(() => {
+        if(!user){
+            router.replace('/admin/auth').then(() =>{});
+        }
         getData().then(() => {
             setLoading(false);
         });

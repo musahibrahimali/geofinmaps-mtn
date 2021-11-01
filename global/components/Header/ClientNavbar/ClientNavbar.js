@@ -5,14 +5,11 @@ import {
     Toolbar,
     IconButton,
     Typography,
-    Badge,
     MenuItem,
     Menu,
 } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import {ClientNavbarStyles} from "./ClientNavbarStyles";
 import {useStateValue} from "../../../../provider/AppState";
@@ -85,6 +82,7 @@ const ClientNavbar = (props) => {
             notifyUser();
         });
         handleMenuClose();
+        router.replace('/auth').then(() =>{});
     }
 
     const menuId = 'primary-search-account-menu';
@@ -116,22 +114,6 @@ const ClientNavbar = (props) => {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     aria-label="account of current user"
