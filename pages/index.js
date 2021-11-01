@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import React, {useEffect, useState} from 'react';
 import { GoogleMapView } from '../client/client';
 import {useStateValue} from '../provider/AppState';
@@ -9,8 +8,7 @@ const cableUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllCableD
 
 const Home = () => {
   /* data layer */
-  const [{ user, isDrawerOpen}, dispatch] = useStateValue();
-  const router = useRouter();
+  const [{ isDrawerOpen}, dispatch] = useStateValue();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [coordinates, setCoordinates] = useState(null);
@@ -51,15 +49,11 @@ const Home = () => {
   }
 
   useEffect(() => {
-    if(!user){
-      router.replace('/auth').then(() => {});
-    }
-
     getData().then(() => {
       setLoading(false);
     });
 
-  },[user, router]);
+  },[]);
 
   const handleOpenDrawer = () => {
     if(isDrawerOpen){

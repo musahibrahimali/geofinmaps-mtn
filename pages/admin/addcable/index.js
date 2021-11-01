@@ -64,6 +64,7 @@ const AddCable = () => {
     const handleAddData = async () => {
         const addCableData = firebase.functions().httpsCallable('addCableData');
         const data = {
+            id: values.lat.toString() + values.lng.toString(),
             location: values.location,
             coord: {
                 lat: values.longitude,

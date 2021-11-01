@@ -5,6 +5,7 @@ export const initialState = {
     theme: false,
     isDrawerOpen: false,
     isSideBarOpen: false,
+    isAdmin: false,
 }
 
 const reducer = (state, action) => {
@@ -28,6 +29,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 isSideBarOpen: action.isSideBarOpen,
+            }
+        case actionTypes.SET_ADMIN:
+            return {
+                ...state,
+                isAdmin: action.isAdmin,
             }
         default:
             return state;

@@ -4,20 +4,14 @@ import InfoWindow from "react-google-maps/lib/components/InfoWindow";
 import {ConfirmDialog, FormButton, Notification, PopUp, ReportForm} from "../../../../global/global";
 import firebase from 'firebase';
 import {useStateValue} from "../../../../provider/AppState";
+import {useRouter} from "next/router";
 const initialPosition = { lat: 6.673175, lng: -1.565423 };
-
-// const fibreLayingCoordinates = [
-//     { lat: 6.6699666789763885, lng: -1.5765456968379823 },
-//     { lat: 6.672664232015921, lng: -1.5726614434823272 },
-//     { lat: 6.675874150071826, lng: -1.5677302624644058 },
-//     { lat: 6.674623339435071, lng: -1.5647412081243117 },
-//     { lat: 6.6794833239758375, lng: -1.559168088045109 },
-// ];
 
 const Map = (props) => {
     const {coordinates, cableData} = props;
     const [position, setPosition] = useState(initialPosition);
     const [isLocation, setIsLocation] = useState(false);
+    const [{user}] = useStateValue();
 
     const setUserPosition = (position) => {
         const latitude = position.coords.latitude;
@@ -52,11 +46,11 @@ const Map = (props) => {
                     },
                 }}>
                 {
-                    coordinates.map((item, index) => {
+                    user ? coordinates.map((item, index) => {
                         return (
                             <DefaultMarker key={index} item={item} cableData={cableData[index]} />
                         );
-                    })
+                    }) : <div> </div>
                 }
                 {/*<Polyline*/}
                 {/*    path={coordinates.sort((a,b) => {*/}
@@ -77,9 +71,15 @@ const Map = (props) => {
 const DefaultMarker = (props) => {
     const { item, cableData } = props;
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
-    const [confirmDialog, setConfirmDialog] = useState({isOpen: false, title:"", subTitle:""});
+    const [confirmDialog, setConfirmDialog] = useState({
+        isOpen: false,
+        title:"",
+        subTitle:"",
+    });
     const [markerOpen, setMarkerOpen] = useState(false);
     const [openPopUp, setOpenPopUp] = useState(false);
+    const [{user}] = useStateValue();
+    const router = useRouter();
 
     const onToggleOpen = () => {
         setMarkerOpen(!markerOpen);
@@ -87,7 +87,18 @@ const DefaultMarker = (props) => {
 
     // close pop up
     const handleOpenPopUP = () => {
-        setOpenPopUp(!openPopUp);
+        if(!user){
+            setConfirmDialog({
+                isOpen: true,
+                title: "No Active User",
+                subTitle: "No user is currently logged in. log in to make a report",
+                onConfirm: () => {
+                    router.push('/auth').then(() =>{});
+                }
+            })
+        }else{
+            setOpenPopUp(!openPopUp);
+        }
     }
 
     return(
@@ -141,7 +152,7 @@ const DefaultMarker = (props) => {
             <PopUp
                 openPopUp={openPopUp}
                 setOpenPopUp={setOpenPopUp}
-                title={"Report Form"}
+                title={"Id Form"}
                 color="secondary"
                 iconColor="primary">
                 <ReportForm

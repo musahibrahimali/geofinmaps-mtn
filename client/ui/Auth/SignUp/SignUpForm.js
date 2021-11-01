@@ -59,7 +59,7 @@ const initialValues = {
 
 const SignUpForm = () => {
     const styles = SignUpFormStyles();
-
+    const [{}, dispatch] = useStateValue();
     const [errorMessage, setErrorMessage] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -123,6 +123,7 @@ const SignUpForm = () => {
             )
             .then((auth) => {
                 const data = {
+                    id: auth.user.uid,
                     userUID: auth.user.uid,
                     fullName: values.fullName,
                     emailAddress: values.emailAddress,
@@ -139,6 +140,10 @@ const SignUpForm = () => {
                     console.log("there was an error", error.message);
                 });
                 notifyUser();
+                dispatch({
+                    type: actionTypes.SET_ADMIN,
+                    isAdmin: true,
+                });
                 router.replace('/').then(() =>{});
             }).catch((error) => {
                 switch (error.code) {

@@ -6,9 +6,12 @@ import {
     DoughnutChart,
     BarChart
 } from '../../../admin/admin';
+import {useStateValue} from "../../../provider/AppState";
 
 function AdminHome(props) {
     const { reports, users } = props;
+    const [{user}] = useStateValue();
+
     /* dash items colors  */
     let normalDash = false;
     let warningDash = false;
@@ -53,62 +56,68 @@ function AdminHome(props) {
     return (
         <div className="mt-16">
             {/* statistics */}
-            <div className="grid md:grid-cols-3 gap-2 bg-white dark:bg-gray-900">
+            <div className="grid md:grid-cols-3 pt-2 pb-2 gap-2 bg-white dark:bg-gray-900">
                 <StatisticsCard
                     notDash={notDash}
                     itemTitle={"Total Users"}
-                    itemCount={users.length}
+                    itemCount={user ? users.length : 0}
                 />
                 <StatisticsCard
                     notDash={notDash}
                     itemTitle={"Total Users Active"}
-                    itemCount={usersActive}
+                    itemCount={user ? usersActive : 0}
                 />
                 <StatisticsCard
                     notDash={notDash}
                     itemTitle={"Total Reports"}
-                    itemCount={reports.length}
+                    itemCount={user ? reports.length : 0}
                 />
             </div>
-            <div className="mt-4">
+            <div className="mt-4 pb-2 pt-2">
                 <div className="grid md:grid-cols-3 gap-2 bg-white dark:bg-gray-900">
                     <StatisticsCard
                         normalDash={normalDash}
                         itemTitle={"Normal Reports"}
-                        itemCount={normalReports}
+                        itemCount={user ? normalReports : 0}
                     />
                     <StatisticsCard
                         warningDash={warningDash}
                         itemTitle={"Warning Reports"}
-                        itemCount={warningReports}
+                        itemCount={user ? warningReports : 0}
                     />
                     <StatisticsCard
                         criticalDash={criticalDash}
                         itemTitle={"Critical Reports"}
-                        itemCount={criticalReports}
+                        itemCount={user ? criticalReports : 0}
                     />
                 </div>
-                <div className="mt-8 mx-4 grid md:grid-cols-2 grid-rows-1 gap-2">
-                    <div className="bg-white hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
-                        <BarChart
-                            normalReports={normalReports}
-                            warningReports={warningReports}
-                            criticalReports={criticalReports}
-                        />
-                    </div>
-                    <div className="bg-white hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
-                        <DoughnutChart
-                            normalReports={normalReports}
-                            warningReports={warningReports}
-                            criticalReports={criticalReports}
-                        />
-                    </div>
-                </div>
+                {
+                    user ?
+                        <div className="mt-8 mx-4 grid md:grid-cols-2 grid-rows-1 gap-2">
+                            <div
+                                className="bg-white hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
+                                <BarChart
+                                    normalReports={normalReports}
+                                    warningReports={warningReports}
+                                    criticalReports={criticalReports}
+                                />
+                            </div>
+                            <div
+                                className="bg-white hidden md:block shadow-md p-6 border border-solid border-gray-200 dark:border-transparent rounded-lg cursor-pointer">
+                                <DoughnutChart
+                                    normalReports={normalReports}
+                                    warningReports={warningReports}
+                                    criticalReports={criticalReports}
+                                />
+                            </div>
+                        </div> :
+                        <div> </div>
+                }
             </div>
 
             {/* users and reports */}
-            <ReportContent reports={reports} />
-            <UsersContent users={users} />
+            {user ? <ReportContent reports={reports}/> : <div> </div>}
+            {user ? <UsersContent users={users}/> : <div> </div>}
         </div>
     );
 }

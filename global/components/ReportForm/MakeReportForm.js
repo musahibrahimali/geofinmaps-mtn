@@ -84,6 +84,7 @@ function MakeReportForm(props) {
 
     const AddReport = (values) => {
         const data = {
+            id: user.uid.toString() + lat.toString() + lng.toString(),
             userUID: user.uid,
             fullName: values.fullName,
             emailAddress: values.emailAddress,
@@ -161,7 +162,7 @@ function MakeReportForm(props) {
 
                             <InputField
                                 required
-                                label="Report Title"
+                                label="Id Title"
                                 name="title"
                                 placeholder="Cable Damage"
                                 value={values.title}
@@ -184,7 +185,7 @@ function MakeReportForm(props) {
                             <RadioControls
                                 required
                                 name="level"
-                                label="Report Level"
+                                label="Id Level"
                                 color="primary"
                                 value={values.level}
                                 items={threatLevels}
@@ -198,7 +199,7 @@ function MakeReportForm(props) {
                             <DatePicker
                                 required
                                 name="reportDate"
-                                label="Report Date"
+                                label="Id Date"
                                 value={values.reportDate}
                                 onChange={handleInputChange}
                             />
@@ -222,7 +223,7 @@ function MakeReportForm(props) {
                     <div className={styles.mainContainer}>
                         <FormButton
                             type="submit"
-                            text="Report"
+                            text="Id"
                         />
                         <FormButton
                             variant="outlined"

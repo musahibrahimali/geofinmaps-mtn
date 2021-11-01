@@ -53,12 +53,12 @@ const Navbar = (props) => {
 
     const handleSignInClick = () => {
         handleMenuClose();
-        router.push('/admin/auth').then(results => console.log(results));
+        router.push('/admin/auth').then(() => {});
     }
 
     const handleAdminSignInClick = () => {
         handleMenuClose();
-        router.push('/admin').then(results => console.log(results));
+        router.push('/').then(() => {});
     }
 
     const handleProfileMenuOpen = (event) => {
@@ -95,7 +95,7 @@ const Navbar = (props) => {
                 {user ? <MenuItem onClick={handleMenuClose}>Profile</MenuItem> : <div> </div>}
                 {user ? <MenuItem onClick={handleSignOut}>Sign Out</MenuItem> : <div> </div>}
                 {user ? <div> </div> : <MenuItem onClick={handleSignInClick}>Sign In</MenuItem>}
-                {user ? <div> </div> : <MenuItem onClick={handleAdminSignInClick}>Admin</MenuItem>}
+                {user ? <div> </div> : <MenuItem onClick={handleAdminSignInClick}>Field Operator</MenuItem>}
         </Menu>
     );
 
@@ -166,12 +166,12 @@ const Navbar = (props) => {
 
                     <div>
                         <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="secondary">
+                            <Badge badgeContent={0} color="secondary">
                                 <MailIcon />
                             </Badge>
                         </IconButton>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge badgeContent={17} color="secondary">
+                            <Badge badgeContent={0} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>

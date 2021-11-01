@@ -36,8 +36,8 @@ function ReportContent(props) {
     });
 
     const headCells = [
-        { id: "reportTitle", label: "Report Title" },
-        { id: "reportType", label: "Report Level" },
+        { id: "reportTitle", label: "Id Title" },
+        { id: "reportType", label: "Id Level" },
         { id: "author", label: "Author" },
         { id: "location", label: "Location"},
         { id: "actions", label: "Actions", disableSorting: true },
@@ -112,8 +112,8 @@ function ReportContent(props) {
         })
     }
 
-    const handleOnClick = (itemId) => {
-        router.push(`/admin/reports/${itemId}`).then(() => {});
+    const handleOnClick = (item) => {
+        router.push(`/admin/reports/${item.id}`).then(() => {});
     }
 
     return (
@@ -155,7 +155,7 @@ function ReportContent(props) {
                                         {/* edit */}
                                         <ActionButton
                                             color="primary"
-                                            onClick={() => handleOnClick(item.id)}>
+                                            onClick={() => handleOnClick(item)}>
                                             <EditOutlinedIcon fontSize="small" />
                                         </ActionButton>
                                         {/* delete */}

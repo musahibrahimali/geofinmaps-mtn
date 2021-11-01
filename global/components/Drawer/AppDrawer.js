@@ -12,7 +12,7 @@ import {useRouter} from "next/router";
 
 const AppDrawer = (props) => {
     const {handleOpenDrawer} = props;
-    const [{ isDrawerOpen }] = useStateValue();
+    const [{ isDrawerOpen, user }] = useStateValue();
     const styles = DrawerStyles();
     const router = useRouter();
 
@@ -30,46 +30,84 @@ const AppDrawer = (props) => {
                     onClick={handleOpenDrawer}
                     onKeyDown={handleOpenDrawer}>
                     <List>
-                        <MenuItemCard
-                            text="Profile"
-                            url={"/admin"}
-                            icon={<PersonIcon color="primary"  />}
-                        />
-                        <MenuItemCard
-                            text="Admin"
-                            url={"/admin"}
-                            icon={<PersonIcon color="primary"  />}
-                        />
-                        <MenuItemCard
-                            text="Operators"
-                            url={"/admin/operators"}
-                            icon={<PersonIcon color="primary"  />}
-                        />
-                        <MenuItemCard
-                            text="Reports"
-                            url={"/admin/reports"}
-                            icon={<PersonIcon color="primary"  />}
-                        />
-                        <MenuItemCard
-                            text="Add Cable Data"
-                            url={"/admin/addcable"}
-                            icon={<PersonIcon color="primary"  />}
-                        />
-                        <MenuItemCard
-                            text="Sign In"
-                            url={"/admin/signin"}
-                            icon={<LockOpenIcon color="primary" />}
-                        />
-                        <MenuItemCard
-                            onClick={() => {
-                                firebase.auth().signOut().then(() => {
-                                    router.replace('/admin/auth').then(() => {});
-                                });
-                            }}
-                            text="Sign Out"
-                            url={"/admin"}
-                            icon={<ExitToAppIcon color="primary" />}
-                        />
+                        {
+                            user ?
+                                <MenuItemCard
+                                    text="Profile"
+                                    url={"/admin"}
+                                    icon={<PersonIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            user ?
+                                <MenuItemCard
+                                    text="Admin"
+                                    url={"/admin"}
+                                    icon={<PersonIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            !user ?
+                                <MenuItemCard
+                                    text="Field Operator"
+                                    url={"/"}
+                                    icon={<PersonIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            user ?
+                                <MenuItemCard
+                                    text="Operators"
+                                    url={"/admin/operators"}
+                                    icon={<PersonIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            user ?
+                                <MenuItemCard
+                                    text="Reports"
+                                    url={"/admin/reports"}
+                                    icon={<PersonIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            user ?
+                                <MenuItemCard
+                                    text="Add Cable Data"
+                                    url={"/admin/addcable"}
+                                    icon={<PersonIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            !user ?
+                                <MenuItemCard
+                                    text="Sign In"
+                                    url={"/admin/signin"}
+                                    icon={<LockOpenIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
+                        {
+                            user ?
+                                <MenuItemCard
+                                    onClick={() => {
+                                        firebase.auth().signOut().then(() => {
+                                            router.replace('/admin/auth').then(() => {
+                                            });
+                                        });
+                                    }}
+                                    text="Sign Out"
+                                    url={"/admin"}
+                                    icon={<ExitToAppIcon color="primary"/>}
+                                /> :
+                                <div> </div>
+                        }
                     </List>
                 </Paper>
             </SwipeableDrawer>

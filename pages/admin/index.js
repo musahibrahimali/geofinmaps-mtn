@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useStateValue} from "../../provider/AppState";
-import {useRouter} from "next/router";
 import actionTypes from "../../Utils/Utils";
 import {Header, ShimmerPage} from "../../global/global";
 import {AdminHome} from '../../admin/admin';
@@ -10,8 +9,7 @@ const usersUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllUsers"
 const reportsUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllReports";
 
 const AdminIndex = () => {
-    const [{ user, isDrawerOpen}, dispatch] = useStateValue();
-    const router = useRouter();
+    const [{ isDrawerOpen}, dispatch] = useStateValue();
 
     const [allUsers, setAllUsers] = useState(null);
     const [allReports, setAllReports] = useState(null);
@@ -48,9 +46,6 @@ const AdminIndex = () => {
 
 
     useEffect(() => {
-        if(!user){
-            router.replace('/admin/auth').then(() =>{});
-        }
         getData().then(() => {
             setLoading(false);
         });

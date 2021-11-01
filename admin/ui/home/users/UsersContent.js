@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {AdminHomeStyles} from "../AdminHomeStyles";
 import {
     ActionButton, ConfirmDialog,
-    FormButton,
     InputField,
     Notification,
     PopUp,
@@ -17,8 +16,6 @@ import {
     Toolbar
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import AddIcon from "@material-ui/icons/Add";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import CloseIcon from "@material-ui/icons/Close";
 import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import {useRouter} from "next/router";
@@ -84,8 +81,8 @@ function UsersContent(props) {
         })
     }
 
-    const handleUserClick = (userName) => {
-        router.push(`/admin/operators/${userName}`).then(() => {});
+    const handleUserClick = (item) => {
+        router.push(`/admin/operators/${item.id}`).then(() => {});
     }
 
     const onDelete = (id) => {
@@ -93,7 +90,7 @@ function UsersContent(props) {
             isOpen: true,
             title: "Are you sure you want to delete entry",
             subTitle: "Entry deleted cannot be restored. You cant undo this operation",
-            onConfirm: () => {handleDelete(id)}
+            // onConfirm: () => {handleDelete(id)}
         })
     }
 
@@ -145,13 +142,13 @@ function UsersContent(props) {
                                     <TableCell>{item.fullName}</TableCell>
                                     <TableCell>{item.emailAddress}</TableCell>
                                     <TableCell>{item.phoneNumber}</TableCell>
-                                    <TableCell>{item.departmentId}</TableCell>
+                                    <TableCell>{item.department}</TableCell>
                                     <TableCell>
                                         {/* edit */}
                                         <ActionButton
                                             color="primary"
                                             onClick={() => {
-                                                handleUserClick(item.fullName);
+                                                handleUserClick(item);
                                             }}>
                                             <RecentActorsIcon color="action" fontSize="small" />
                                         </ActionButton>

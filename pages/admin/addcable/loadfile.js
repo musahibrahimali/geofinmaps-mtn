@@ -62,6 +62,7 @@ const LoadFile = () => {
             const addCableData = firebase.functions().httpsCallable('addCableData');
             fileContent.map((item) => {
                 const data = {
+                    id: item.coord.lat.toString() + item.coord.lng.toString(),
                     city: item.location,
                     details: item.details,
                     coord: {

@@ -20,6 +20,8 @@ exports.onUserLogIn = functions.https.onCall((data) => {
 
 exports.storeClientData = functions.https.onCall((data) => {
   return admin.firestore().collection("users").doc(data.userUID).set({
+    id: data.id,
+    userUID: data.userUID,
     emailAddress: data.emailAddress,
     fullName: data.fullName,
     phoneNumber: data.phoneNumber,
@@ -34,6 +36,8 @@ exports.storeClientData = functions.https.onCall((data) => {
 
 exports.storeAdminData = functions.https.onCall((data) => {
   return admin.firestore().collection("admins").doc(data.userUID).set({
+    id: data.id,
+    userUID: data.userUID,
     emailAddress: data.emailAddress,
     fullName: data.fullName,
     phoneNumber: data.phoneNumber,
@@ -79,6 +83,7 @@ exports.addCableData = functions.https.onCall((data, context) => {
     );
   }
   return admin.firestore().collection("cable_data").add({
+    id: data.id,
     city: data.city,
     details: data.details,
     coord: {
@@ -109,6 +114,7 @@ exports.addReport = functions.https.onCall((data, context) => {
   }
   const createdAt = new Date();
   return admin.firestore().collection("reports").add({
+    id: data.id,
     createdAt: createdAt,
     fullName: data.fullName,
     emailAddress: data.emailAddress,

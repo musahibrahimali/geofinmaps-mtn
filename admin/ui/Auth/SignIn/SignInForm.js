@@ -26,6 +26,8 @@ import {
 import firebase from 'firebase';
 import {SignInFormStyles} from "./SignInFormStyles";
 import {useRouter} from "next/router";
+import {useStateValue} from "../../../../provider/AppState";
+import actionTypes from "../../../../Utils/Utils";
 
 const initialValues = {
     id: 0,
@@ -37,6 +39,7 @@ const initialValues = {
 const AdminSignInForm = () => {
 
     const styles = SignInFormStyles();
+    const [{}, dispatch] = useStateValue();
 
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -83,6 +86,10 @@ const AdminSignInForm = () => {
                 values.emailAddress.trim().toString(), values.password
             ).then(() => {
                 notifyUser();
+                dispatch({
+                    type: actionTypes.SET_ADMIN,
+                    isAdmin: true,
+                });
                 handleResetForm();
                 router.replace('/admin').then(() =>{});
             }).catch((error) => {

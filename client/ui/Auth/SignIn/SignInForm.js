@@ -14,10 +14,20 @@ import LockOpenOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
 import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
-import {CheckBox, CopyRight, Form, FormButton, InputField, Notification, UseForm} from "../../../../global/global";
+import {
+    CheckBox,
+    CopyRight,
+    Form,
+    FormButton,
+    InputField,
+    Notification,
+    UseForm
+} from "../../../../global/global";
 import firebase from 'firebase';
 import {SignInFormStyles} from "./SignInFormStyles";
 import {useRouter} from "next/router";
+import {useStateValue} from "../../../../provider/AppState";
+import actionTypes from "../../../../Utils/Utils";
 
 const initialValues = {
     id: 0,
@@ -30,7 +40,7 @@ const SignInForm = () => {
 
     const styles = SignInFormStyles();
     const router = useRouter();
-
+    const [{}, dispatch] = useStateValue();
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [notify, setNotify] = useState({isOpen: false, message:"", type:""});
@@ -74,6 +84,10 @@ const SignInForm = () => {
             values.emailAddress, values.password
         ).then(() => {
                 notifyUser();
+                dispatch({
+                    type: actionTypes.SET_ADMIN,
+                    isAdmin: true,
+                });
                 handleResetForm();
                 router.replace('/').then(() => {});
         }).catch((error) => {

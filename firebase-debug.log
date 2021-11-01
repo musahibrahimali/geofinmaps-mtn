@@ -1,0 +1,15 @@
+[debug] [2021-11-01T11:56:32.487Z] ----------------------------------------------------------------------
+[debug] [2021-11-01T11:56:32.490Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\musah\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2021-11-01T11:56:32.491Z] CLI Version:   9.21.0
+[debug] [2021-11-01T11:56:32.491Z] Platform:      win32
+[debug] [2021-11-01T11:56:32.491Z] Node Version:  v16.10.0
+[debug] [2021-11-01T11:56:32.496Z] Time:          Mon Nov 01 2021 11:56:32 GMT+0000 (Greenwich Mean Time)
+[debug] [2021-11-01T11:56:32.496Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-11-01T11:56:32.501Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-11-01T11:56:32.645Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-11-01T11:56:32.645Z] > authorizing via signed-in user (musahibrahimali@gmail.com)
+[debug] [2021-11-01T11:56:32.645Z] [iam] checking project roam-ghana for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2021-11-01T11:56:32.648Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2021-11-01T11:56:32.649Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>

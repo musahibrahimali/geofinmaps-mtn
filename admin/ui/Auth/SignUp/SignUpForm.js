@@ -31,6 +31,8 @@ import {
 } from "../../../../global/global";
 import {useRouter} from "next/router";
 import {SignUpFormStyles} from "./SignUpFormStyles";
+import actionTypes from "../../../../Utils/Utils";
+import {useStateValue} from "../../../../provider/AppState";
 
 const genderItems = [
     { id: "male", title: "Male" },
@@ -54,7 +56,7 @@ const initialValues = {
 
 const AdminSignUpForm = () => {
     const styles = SignUpFormStyles();
-
+    const [{}, dispatch] = useStateValue();
     const [errorMessage, setErrorMessage] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
@@ -117,6 +119,7 @@ const AdminSignUpForm = () => {
                 values.emailAddress, values.password
             ).then((auth) => {
                 const data = {
+                    id: auth.user.uid,
                     userUID: auth.user.uid,
                     fullName: values.fullName,
                     emailAddress: values.emailAddress,
@@ -131,6 +134,10 @@ const AdminSignUpForm = () => {
                 const storeAdminData = firebase.functions().httpsCallable('storeAdminData');
                 storeAdminData(data).then(() => {});
                 notifyUser();
+                dispatch({
+                    type: actionTypes.SET_ADMIN,
+                    isAdmin: true,
+                });
                 handleResetForm();
                 router.replace('/admin').then(() => {});
             }).catch((error) => {
