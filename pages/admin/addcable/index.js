@@ -2,15 +2,19 @@ import React, {useState} from 'react';
 import Link from 'next/link';
 import {useStateValue} from "../../../provider/AppState";
 import actionTypes from "../../../Utils/Utils";
-import {Header} from "../../../global/components/globalComponents";
 import firebase from 'firebase';
 import 'firebase/database';
-import {CheckBox, CopyRight, Form, FormButton, InputField, Notification, UseForm} from "../../../global/global";
-import EmailOutlinedIcon from "@material-ui/icons/EmailOutlined";
-import LockOpenOutlinedIcon from "@material-ui/icons/LockOpenOutlined";
-import {Box, Grid, IconButton, InputAdornment} from "@material-ui/core";
-import VisibilityOutlinedIcon from "@material-ui/icons/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from "@material-ui/icons/VisibilityOffOutlined";
+import {
+    Header,
+    CopyRight,
+    Form,
+    FormButton,
+    InputField,
+    Notification,
+    UseForm
+} from "../../../global/global";
+import {Box} from "@material-ui/core";
+
 
 const initialValues = {
     id: 0,

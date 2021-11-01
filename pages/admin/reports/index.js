@@ -36,7 +36,7 @@ const Reports = () => {
         getData().then(() => {
             setLoading(false);
         });
-    },[]);
+    });
 
     const handleOpenDrawer = () => {
         if(isDrawerOpen){

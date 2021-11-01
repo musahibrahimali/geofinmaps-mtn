@@ -10,6 +10,7 @@ import actionTypes from "../Utils/Utils";
 const NotFound = () => {
 
     const router = useRouter();
+    const [{isAdmin}] = useStateValue();
     /* data layer */
     const [{ isDrawerOpen}, dispatch] = useStateValue();
     const handleOpenDrawer = () => {
@@ -28,7 +29,9 @@ const NotFound = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            router.replace('/').then(results => {console.log(results)});
+            isAdmin ?
+                router.replace('/admin').then(results => {console.log(results)}) :
+                router.replace('/').then(results => {console.log(results)});
         }, 5000);
     })
 

@@ -50,7 +50,7 @@ const Operator = ({id}) => {
         getData().then(() => {
             setLoading(false);
         });
-    },[]);
+    });
 
     return (
         <>

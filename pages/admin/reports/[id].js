@@ -48,7 +48,7 @@ const Report = ({id}) => {
         getData().then(() => {
             setLoading(false);
         });
-    },[]);
+    });
 
     return (
         <>

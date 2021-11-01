@@ -1,5 +1,5 @@
 import React from 'react';
-import {ClientNavbar, Header} from "../global/components/globalComponents";
+import {ClientNavbar} from "../global/global";
 import actionTypes from "../Utils/Utils";
 import {useStateValue} from "../provider/AppState";
 

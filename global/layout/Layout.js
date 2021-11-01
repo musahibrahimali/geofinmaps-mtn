@@ -78,8 +78,7 @@ const Layout = (props) => {
             }
         });
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    });
 
     return (
         <ThemeProvider theme={appTheme}>

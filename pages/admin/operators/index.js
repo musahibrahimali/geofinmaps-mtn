@@ -37,7 +37,7 @@ const Operators = () => {
         getData().then(() => {
             setLoading(false);
         });
-    },[]);
+    });
 
     const handleOpenDrawer = () => {
         if(isDrawerOpen){

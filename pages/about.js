@@ -1,7 +1,7 @@
 import React from 'react';
 import {useStateValue} from "../provider/AppState";
 import actionTypes from "../Utils/Utils";
-import {ClientNavbar, Header} from "../global/components/globalComponents";
+import {ClientNavbar} from "../global/global";
 
 const About = () => {
     /* data layer */

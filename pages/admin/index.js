@@ -49,7 +49,7 @@ const AdminIndex = () => {
         getData().then(() => {
             setLoading(false);
         });
-    },[]);
+    });
 
     /* data layer */
     const handleOpenDrawer = () => {
