@@ -4,19 +4,26 @@
 - install any javascript IDE or Text editor - like VS Code [VSCode](<https://code.visualstudio.com/>)
 - create a firebase account by simply logging in ot [Firebase Console](<https://firebase.google.com/>) with any designated google account
 - add or create a project on firebase console [Firebase Console](<https://firebase.google.com/>)
-![add project](add-project.png)
+![add project](z_preview/add-project.png)
 - activate the authentication feature
-![authentication](auth-and-auth-methods.png)
+![authentication](z_preview/auth-and-auth-methods.png)
 - activate the functions feature
-![functions](functions.png)
+![functions](z_preview/functions.png)
 - activate the firestore feature
-![firestore](firestore.png)
+![firestore](z_preview/firestore.png)
 - add a web app to the project
-![web app](web-app.png)
-- The above method can be done using the web app icon on the project page or going to the project set up and adding an app
+![web app](z_preview/web-app.png)
+- the above can be done in the firebase console in the project overview screen as well
+- navigate to the project overview screen
+![web app](z_preview/add_web.png)
+- then select the web app or + icon and select web app
+![web app](z_preview/web_app.png)
+- switch to **Blaze plan** on the project overview page to support firebase functions
+![web app](z_preview/blaze-plan.png)
+- Note the above require you to add a working payment method (credit card or equivalent to your app)
 - get and save the config details somewhere on your local system for later use
 - The credentials can be copied from the firebase console
-![credentials](config-details.png)
+![credentials](z_preview/config-details.png)
 
 ## install the needed dependencies
 
