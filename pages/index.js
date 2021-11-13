@@ -4,7 +4,7 @@ import {useStateValue} from '../provider/AppState';
 import {ClientNavbar, ShimmerPage} from "../global/global";
 import actionTypes from "../Utils/Utils";
 import axios from "axios";
-const cableUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllCableData";
+const cableUrl = process.env.ALLCABLESURL;
 
 const Home = () => {
   /* data layer */

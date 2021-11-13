@@ -5,8 +5,8 @@ import {Header, ShimmerPage} from "../../global/global";
 import {AdminHome} from '../../admin/admin';
 import axios from "axios";
 
-const usersUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllUsers";
-const reportsUrl = "https://us-central1-roam-ghana.cloudfunctions.net/getAllReports";
+const usersUrl = process.env.ALLUSERSURL;
+const reportsUrl = process.env.ALLREPORTSURL;
 
 const AdminIndex = () => {
     const [{ isDrawerOpen}, dispatch] = useStateValue();
