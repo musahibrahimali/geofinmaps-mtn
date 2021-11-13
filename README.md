@@ -37,6 +37,23 @@
 - install the firebase cli with `npm install -g firebase-tools`
 - log in to the firebase cli with the firebase account you created by running `firebase login` and following the prompt
 
+## generate a map api key
+- navigate to the [developer console](<https://console.cloud.google.com/apis/dashboard?pli=1/>)
+- log in with the same google account used for the firebase account
+- make sure the project created on firebase is active on the navbar
+![developer console](z_preview/select_project.png)
+- open the libraries tab
+![libraries](z_preview/libraries.png)
+- open and enable the google maps api for javascript
+![google maps api](z_preview/enable_maps_api.png)
+- open the credentials tab
+![credentials](z_preview/credentials.png)
+- create a new credentials for web (optional)
+![credentials](z_preview/create_credentials.png)
+- or copy any of the existing credentials
+![credentials](z_preview/copy_api_key.png)
+- save the api key somewhere on your local system for later use
+
 ## clone this repo 
 
 - navigate to preferred location to clone the repository to and right click and select `git bash here`
@@ -62,6 +79,7 @@
 - once all is deployed get all the function links
 - you can get all the links after the deployment process or navigate to the functions tab on the firebase console and get the links from the functions on the dashboard
 - replace the function links in the .env file with the links you got from the firebase console
+- replace the APIKEY in the .env file with the api key you got from the developer console
 - **contact me in case of any issues**
 
 
